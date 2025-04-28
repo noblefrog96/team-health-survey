@@ -1,33 +1,42 @@
+// getStatus.js
 const { google } = require('googleapis');
-const path = require('path');
 
 exports.handler = async () => {
-  // 서비스 계정 키를 환경 변수에서 가져옴!
-  const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT);
+  try {
+    const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT);
+    const auth = new google.auth.GoogleAuth({
+      credentials: serviceAccount,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets']
+    });
 
-  // 구글 인증 객체 생성
-  const auth = new google.auth.GoogleAuth({
-    credentials: serviceAccount,
-    scopes: ['https://www.googleapis.com/auth/spreadsheets']
-  });
-  // 클라이언트 생성
-  const client = await auth.getClient();
-  // Google Sheets API 클라이언트 생성
-  const sheets = google.sheets({ version: 'v4', auth: client });
+    const client = await auth.getClient();
+    const sheets = google.sheets({ version: 'v4', auth: client });
 
-  // 스프레드시트 ID와 읽을 범위 설정
-  const SPREADSHEET_ID = '1BZ5tMYdt8yHVyPz58J-B7Y5aLd9-ukGbeu7hd_BHTYI';
-  const RANGE = 'kensol_sinteam!A2:B11'; // A: 이름 / B: 제출 여부
+    const SPREADSHEET_ID = '1BZ5tMYdt8yHVyPz58J-B7Y5aLd9-ukGbeu7hd_BHTYI';
+    const RANGE = 'kensol_sinteam!A2:C11'; // A, B, C 열을 가져옴
 
-  // 스프레드시트 데이터를 가져오기
-  const res = await sheets.spreadsheets.values.get({
-    spreadsheetId: SPREADSHEET_ID,
-    range: RANGE
-  });
+    const res = await sheets.spreadsheets.values.get({
+      spreadsheetId: SPREADSHEET_ID,
+      range: RANGE,
+    });
 
-  // 데이터를 가공하여 반환
-  const rows = res.data.values || [];
-  const data = rows.map(r => ({ name: r[0], submitted: r[1] === '✅' }));
+    const data = res.data.values;
 
-  return { statusCode: 200, body: JSON.stringify(data) };
+    const statuses = data.map(row => ({
+      name: row[0],       // 이름
+      submitted: row[1] === '✅', // 제출 여부
+      submittedTime: row[2] || '미제출' // 제출 시간
+    }));
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(statuses),
+    };
+  } catch (error) {
+    console.error('Error fetching status:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ success: false, error: error.message })
+    };
+  }
 };
