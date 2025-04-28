@@ -1,4 +1,5 @@
-const team = ["박지율","윤하늘","신현민","양대종","강신용","박병철","마경아","변상규","김진용","한창석"];
+// 수정된 script.js
+const team = ["박지율", "윤하늘", "신현민", "양대종", "강신용", "박병철", "마경아", "변상규", "김진용", "한창석"];
 const list = document.getElementById('team-list');
 
 async function fetchStatus() {
@@ -15,14 +16,18 @@ function render(statuses) {
     const span = document.createElement('span');
     span.textContent = s?.submitted ? '✅' : '❌';
     const btn = document.createElement('button');
-    btn.textContent = '제출';
+    btn.textContent = name;  // 이름을 버튼에 표시
     btn.disabled = s?.submitted;
     btn.onclick = async () => {
       btn.disabled = true;
-      await fetch('/.netlify/functions/survey', {
+      const res = await fetch('/.netlify/functions/survey', {
         method: 'POST',
         body: JSON.stringify({ name })
       });
+      const result = await res.json();
+      if (result.success) {
+        alert(result.message);  // 제출 완료 메시지 표시
+      }
       render(await fetchStatus());
     };
     li.append(span, btn);
