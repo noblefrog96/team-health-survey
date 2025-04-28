@@ -39,7 +39,7 @@ exports.handler = async (event) => {
     const SPREADSHEET_ID = '1BZ5tMYdt8yHVyPz58J-B7Y5aLd9-ukGbeu7hd_BHTYI';
     const sheetData = await sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
-      range: 'Sheet1!A2:A11'
+      range: 'kensol_sinteam!A2:A11'
     });
 
     const names = sheetData.data.values.flat();
@@ -47,7 +47,7 @@ exports.handler = async (event) => {
     if (idx !== -1) {
       await sheets.spreadsheets.values.update({
         spreadsheetId: SPREADSHEET_ID,
-        range: `Sheet1!B${idx + 2}`,
+        range: `kensol_sinteam!B${idx + 2}`,
         valueInputOption: 'RAW',
         requestBody: { values: [['✅']] }
       });
