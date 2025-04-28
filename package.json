@@ -4,5 +4,7 @@
   "scripts": {
     "build": "echo 'No build step required for static site'"
   },
-  "dependencies": {}
+  "dependencies": {
+    "googleapis": "^39.0.0"
+  }
 }
