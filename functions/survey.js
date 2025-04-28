@@ -49,8 +49,11 @@ exports.handler = async (event) => {
   });
 
   // 2) 스프레드시트에 ✅ 기록
+  const { google } = require('googleapis');
+  
+  const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT);
   const auth = new google.auth.GoogleAuth({
-    keyFile: path.resolve(__dirname, '../service-account.json'),
+    credentials: serviceAccount,
     scopes: ['https://www.googleapis.com/auth/spreadsheets']
   });
   const client = await auth.getClient();
