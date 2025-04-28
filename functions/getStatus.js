@@ -17,7 +17,7 @@ exports.handler = async () => {
 
   // 스프레드시트 ID와 읽을 범위 설정
   const SPREADSHEET_ID = '1BZ5tMYdt8yHVyPz58J-B7Y5aLd9-ukGbeu7hd_BHTYI';
-  const RANGE = 'Sheet1!A2:B11'; // A: 이름 / B: 제출 여부
+  const RANGE = 'kensol_sinteam!A2:B11'; // A: 이름 / B: 제출 여부
 
   // 스프레드시트 데이터를 가져오기
   const res = await sheets.spreadsheets.values.get({
