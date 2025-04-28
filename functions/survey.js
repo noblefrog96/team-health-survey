@@ -7,7 +7,7 @@ exports.handler = async (event) => {
   const { name } = JSON.parse(event.body);
 
   // 1) 회사 구글폼 자동 제출 (entry.XXX는 개발자도구 카피)
-  const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc5zicXdV113lzuk7Qe78ncIcmpEpN8QHK33m4k_-lqoMtbPg/formResponse';
+  const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc5zicXdV113lzuk7Qe78ncIcmpEpN8QHK33m4k_-lqoMtbPg/viewform';
 
   const formData = {
     // 01. 협력사명 (드롭다운)
