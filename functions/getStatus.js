@@ -9,7 +9,7 @@ exports.handler = async () => {
   const client = await auth.getClient();
   const sheets = google.sheets({ version: 'v4', auth: client });
 
-  const SPREADSHEET_ID = '【여기에_스프레드시트_ID_붙여넣기】';
+  const SPREADSHEET_ID = '1BZ5tMYdt8yHVyPz58J-B7Y5aLd9-ukGbeu7hd_BHTYI';
   const RANGE = 'Sheet1!A2:B11'; // A: 이름 / B: 제출 여부
 
   const res = await sheets.spreadsheets.values.get({
