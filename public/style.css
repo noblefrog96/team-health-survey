@@ -6,9 +6,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* 최상단 부분이 짤리는 문제 해결을 위해 상단 정렬 */
   height: 100vh;
   background-color: #f7f7f7;
+  padding-top: 20px; /* 상단 여백 추가 */
 }
 
 /* 제목 */
@@ -68,10 +69,10 @@ body {
   color: gray;
 }
 
-/* 버튼 스타일 */
+/* 버튼 스타일 (롤백) */
 button {
   margin-left: 10px;
-  padding: 5px 12px;  /* 버튼 크기 줄이기 */
+  padding: 8px 16px;  /* 이전 버튼 크기 */
   font-size: 1em;
   background-color: #007BFF; /* 파란색으로 변경 */
   color: white;
@@ -79,7 +80,6 @@ button {
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
-  max-width: 120px;  /* 버튼 최대 너비 설정 */
 }
 
 button:disabled {
@@ -119,6 +119,5 @@ button:disabled {
   button {
     padding: 6px 12px;
     font-size: 0.9em;
-    max-width: 100%; /* 버튼을 화면 너비에 맞게 확대 */
   }
 }
