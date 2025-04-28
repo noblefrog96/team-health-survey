@@ -24,8 +24,15 @@ function render(statuses) {
     const s = statuses.find(x => x.name === name);
     const li = document.createElement('li');
     li.textContent = name;
+
+    // 제출 시간 표시
+    const timeSpan = document.createElement('span');
+    timeSpan.classList.add('time');
+    timeSpan.textContent = s?.submittedTime || '미제출';
+
     const span = document.createElement('span');
     span.textContent = s?.submitted ? '✅' : '❌';
+    
     const btn = document.createElement('button');
     btn.textContent = '제출';
     btn.disabled = s?.submitted;
@@ -40,7 +47,8 @@ function render(statuses) {
       });
       render(await fetchStatus());
     };
-    li.append(span, btn);
+
+    li.append(span, timeSpan, btn); // 시간도 추가
     list.append(li);
   });
 }
