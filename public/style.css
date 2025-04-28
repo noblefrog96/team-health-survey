@@ -1,0 +1,3 @@
+body { font-family: sans-serif; max-width: 400px; margin: auto; padding: 20px; }
+li { display: flex; justify-content: space-between; margin: 10px 0; }
+button { padding: 4px 8px; }
