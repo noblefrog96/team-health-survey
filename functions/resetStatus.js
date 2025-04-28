@@ -21,27 +21,35 @@ exports.handler = async () => {
 
     // 스프레드시트 ID와 초기화할 범위 설정
     const SPREADSHEET_ID = '1BZ5tMYdt8yHVyPz58J-B7Y5aLd9-ukGbeu7hd_BHTYI';
-    const RANGE = 'kensol_sinteam!B2:B11'; // 제출 여부가 있는 열
+    const RANGE_SUBMITTED = 'kensol_sinteam!B2:B11';  // 제출 여부가 있는 열
+    const RANGE_SUBMITTED_TIME = 'kensol_sinteam!C2:C11';  // 제출 시간 열
 
-    // 제출 여부 초기화
-    const resetData = Array(10).fill(['']); // 빈 값으로 초기화 (✅ 제거)
+    // 제출 여부와 제출 시간 초기화
+    const resetData = Array(10).fill(['']); // 빈 값으로 초기화
 
     await sheets.spreadsheets.values.update({
       spreadsheetId: SPREADSHEET_ID,
-      range: RANGE,
+      range: RANGE_SUBMITTED,
+      valueInputOption: 'RAW',
+      requestBody: { values: resetData },
+    });
+
+    await sheets.spreadsheets.values.update({
+      spreadsheetId: SPREADSHEET_ID,
+      range: RANGE_SUBMITTED_TIME,
       valueInputOption: 'RAW',
       requestBody: { values: resetData },
     });
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ success: true, message: '제출 여부가 초기화되었습니다.' })
+      body: JSON.stringify({ success: true })
     };
   } catch (error) {
-    console.error('Error in resetting survey status:', error.message);
+    console.error('Error in resetting survey status and time:', error.message);
     return {
       statusCode: 500,
-      body: JSON.stringify({ success: false, message: '초기화 실패!', error: error.message })
+      body: JSON.stringify({ success: false, error: error.message })
     };
   }
 };
