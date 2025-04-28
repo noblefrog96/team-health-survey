@@ -1,8 +1,24 @@
+/* 기본 스타일 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f8f8;
+  color: #333;
+  padding: 20px;
+  margin: 0;
+}
+
 /* 날짜와 시간 표시 */
 #date-time {
   font-size: 1.2em;
   margin-bottom: 20px;
   color: #333;
+  text-align: center;
 }
 
 /* 팀 목록 */
@@ -13,8 +29,19 @@
 
 #team-list li {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 1em;
+  transition: transform 0.2s ease-in-out;
+}
+
+#team-list li:hover {
+  transform: translateY(-4px);
 }
 
 #team-list li span {
@@ -28,6 +55,44 @@
   margin-left: 10px;
 }
 
+/* 버튼 스타일 */
 button {
-  margin-left: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #45a049;
+}
+
+/* 모바일 반응형 스타일 */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  #team-list li {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  #date-time {
+    font-size: 1em;
+  }
 }
