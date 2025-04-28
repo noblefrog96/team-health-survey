@@ -6,9 +6,9 @@ const path = require('path');
 exports.handler = async (event) => {
   const { name } = JSON.parse(event.body);
 
-  // 1) 회사 구글폼 자동 제출 (entry.XXX는 개발자도구에서 복사)
+  // 1) 회사 구글폼 자동 제출 (entry.XXX는 개발자도구 카피)
   const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc5zicXdV113lzuk7Qe78ncIcmpEpN8QHK33m4k_-lqoMtbPg/formResponse';
-// survey.js 내 formData 예시
+
   const formData = {
     // 01. 협력사명 (드롭다운)
     'entry.2099356774': '케이엔솔',
@@ -49,8 +49,6 @@ exports.handler = async (event) => {
   });
 
   // 2) 스프레드시트에 ✅ 기록
-  const { google } = require('googleapis');
-  
   const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT);
   const auth = new google.auth.GoogleAuth({
     credentials: serviceAccount,
