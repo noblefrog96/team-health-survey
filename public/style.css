@@ -51,8 +51,9 @@ body {
 
 /* 팀 목록 각 항목 스타일 */
 #team-list li {
-  display: flex;
-  flex-direction: column; /* 항목을 세로로 배열 */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr; /* 가로 1열로 항목들 나열 */
+  gap: 15px;
   align-items: center;
   margin-bottom: 15px;
   background-color: #fff;
@@ -111,12 +112,12 @@ button:disabled {
 
   /* 팀 목록 제목의 그리드 레이아웃을 세로로 변경 */
   #team-list-header {
-    grid-template-columns: 1fr; /* 1열로 변경 */
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* 1열로 변경 */
   }
 
   /* 팀 목록 각 항목의 그리드 레이아웃을 세로로 변경 */
   #team-list li {
-    grid-template-columns: 1fr; /* 1열로 변경 */
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* 모바일에서도 항목들이 1열로 배치 */
     padding: 15px; /* 세로 항목이 많아졌으므로 패딩 조정 */
   }
 
