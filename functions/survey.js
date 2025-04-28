@@ -1,4 +1,3 @@
-// survey.js
 const axios = require('axios');
 const qs = require('qs');
 const { google } = require('googleapis');
@@ -6,6 +5,7 @@ const { google } = require('googleapis');
 exports.handler = async (event) => {
   try {
     const { name } = JSON.parse(event.body);
+    const submissionTime = new Date().toLocaleString(); // 제출 시간
 
     // 1. 구글폼 제출
     const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc5zicXdV113lzuk7Qe78ncIcmpEpN8QHK33m4k_-lqoMtbPg/formResponse';
@@ -38,7 +38,6 @@ exports.handler = async (event) => {
     const sheets = google.sheets({ version: 'v4', auth });
 
     const SPREADSHEET_ID = '1BZ5tMYdt8yHVyPz58J-B7Y5aLd9-ukGbeu7hd_BHTYI';
-
     const sheetData = await sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
       range: 'kensol_sinteam!A2:A'
@@ -51,7 +50,7 @@ exports.handler = async (event) => {
         spreadsheetId: SPREADSHEET_ID,
         range: `kensol_sinteam!B${idx + 2}`,
         valueInputOption: 'RAW',
-        requestBody: { values: [['✅']] }
+        requestBody: { values: [['✅', submissionTime]] } // 제출 시간 추가
       });
     }
 
