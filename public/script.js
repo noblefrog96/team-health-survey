@@ -1,4 +1,4 @@
-const team = ["박지율","윤하늘","신현민","양대종","강신용","박병철","마경아","변상규","김진용","한창석"];
+const team = ["박지율", "윤하늘", "신현민", "양대종", "강신용", "박병철", "마경아", "변상규", "김진용", "한창석"];
 const list = document.getElementById('team-list');
 
 async function fetchStatus() {
@@ -21,6 +21,9 @@ function render(statuses) {
       btn.disabled = true;
       await fetch('/.netlify/functions/survey', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({ name })
       });
       render(await fetchStatus());
