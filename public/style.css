@@ -13,11 +13,36 @@ body {
   margin: 0;
 }
 
+/* 팀원 건강 설문 제목 */
+#team-title {
+  font-size: 1.5em;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  font-weight: bold;
+}
+
 /* 날짜와 시간 표시 */
 #date-time {
   font-size: 1.2em;
   margin-bottom: 20px;
   color: #333;
+  text-align: center;
+}
+
+/* 팀 목록 제목 */
+#team-list-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #ddd;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+#team-list-header div {
+  width: 23%;
   text-align: center;
 }
 
@@ -94,5 +119,9 @@ button:hover:not(:disabled) {
 
   #date-time {
     font-size: 1em;
+  }
+
+  #team-list-header div {
+    font-size: 0.9em;
   }
 }
