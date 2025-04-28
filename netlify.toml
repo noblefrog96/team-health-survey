@@ -1,3 +1,7 @@
 [build]
   functions = "functions"
   publish = "public"
+
+[[scheduled_functions]]
+  function = "resetStatus"
+  schedule = "0 0 * * *" # 자정에 실행 (UTC 기준)
