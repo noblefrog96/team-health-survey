@@ -14,7 +14,7 @@ exports.handler = async (event) => {
     'entry.2099356774': '케이엔솔',
   
     // 02. 이름 (단답형 텍스트)
-    'entry.1432170741': name,
+    'entry.1432170741': '박지율',
   
     // 03. 금일 작업 내용 (단답형 텍스트)
     'entry.761078236': 'FFU 자동제어 설치',
@@ -44,7 +44,6 @@ exports.handler = async (event) => {
     'entry.487055317': '복용중인 약 없음'
   };
 
-  // 폼 제출
   await axios.post(FORM_URL, qs.stringify(formData), {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
   });
@@ -68,18 +67,11 @@ exports.handler = async (event) => {
   if (idx !== -1) {
     await sheets.spreadsheets.values.update({
       spreadsheetId: SPREADSHEET_ID,
-      range: `Sheet1!B${idx+2}`,
+      range: Sheet1!B${idx+2},
       valueInputOption: 'RAW',
       requestBody: { values: [['✅']] }
     });
   }
 
-  // 제출 완료 메시지 추가
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      success: true,
-      message: "제출이 완료되었습니다. 감사합니다!"  // 이 부분이 추가된 메시지
-    }),
-  };
+  return { statusCode: 200, body: JSON.stringify({ success: true }) };
 };
