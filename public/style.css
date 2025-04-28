@@ -107,12 +107,12 @@ button:disabled {
 
   /* 팀 목록 제목의 그리드 레이아웃을 세로로 변경 */
   #team-list-header {
-    grid-template-columns: 1fr 1fr; /* 2열로 변경 */
+    grid-template-columns: 1fr; /* 1열로 변경 */
   }
 
-  /* 팀 목록 각 항목의 그리드 레이아웃을 세로로 변경 */
+  /* 팀 목록 각 항목의 그리드 레이아웃을 1열로 변경 */
   #team-list li {
-    grid-template-columns: 1fr 1fr; /* 2열로 변경 */
+    grid-template-columns: 1fr; /* 1열로 변경 */
   }
 
   /* 버튼 크기 조정 */
