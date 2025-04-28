@@ -41,7 +41,7 @@ exports.handler = async (event) => {
 
     const sheetData = await sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
-      range: 'kensol_sinteam!A2:A11'
+      range: 'kensol_sinteam!A2:A'
     });
 
     const names = sheetData.data.values.flat();
