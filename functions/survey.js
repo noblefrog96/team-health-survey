@@ -1,3 +1,7 @@
+const axios = require('axios');
+const qs = require('qs');
+const { google } = require('googleapis');
+
 // 한국 시간으로 변환하는 함수
 function getKST() {
   const date = new Date();
@@ -8,7 +12,6 @@ function getKST() {
   return localDate.toISOString().replace('T', ' ').slice(0, 19);
 }
 
-// survey.js 수정
 exports.handler = async (event) => {
   try {
     const { name } = JSON.parse(event.body);
@@ -56,7 +59,7 @@ exports.handler = async (event) => {
     const names = sheetData.data.values.flat();
     const idx = names.indexOf(name);
     if (idx !== -1) {
-      // 제출 여부 업데이트
+     // 제출 여부 업데이트
       await sheets.spreadsheets.values.update({
         spreadsheetId: SPREADSHEET_ID,
         range: `kensol_sinteam!B${idx + 2}`,
