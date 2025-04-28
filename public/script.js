@@ -36,6 +36,9 @@ async function handleSubmit(name) {
       alert(result.message);  // 실패 메시지 출력
     }
 
+    // 제출 후 버튼 비활성화 처리
+    render(await fetchStatus());  // 상태를 다시 렌더링하여 버튼을 비활성화 상태로 갱신
+
   } catch (error) {
     console.error('Error:', error);
     alert('서버와의 통신 중 오류가 발생했습니다.');
