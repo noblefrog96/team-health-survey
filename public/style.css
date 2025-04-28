@@ -1,3 +1,33 @@
-body { font-family: sans-serif; max-width: 400px; margin: auto; padding: 20px; }
-li { display: flex; justify-content: space-between; margin: 10px 0; }
-button { padding: 4px 8px; }
+/* 날짜와 시간 표시 */
+#date-time {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* 팀 목록 */
+#team-list {
+  list-style: none;
+  padding: 0;
+}
+
+#team-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+#team-list li span {
+  margin-right: 10px;
+}
+
+/* 제출 시간 스타일 */
+#team-list li .time {
+  font-size: 0.9em;
+  color: gray;
+  margin-left: 10px;
+}
+
+button {
+  margin-left: 10px;
+}
