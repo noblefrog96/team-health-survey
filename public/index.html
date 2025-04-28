@@ -2,14 +2,28 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>팀원 건강 설문</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>팀원 건강 설문</h1>
-  <div id="date-time"></div> <!-- 날짜와 시간 표시 영역 -->
+  <!-- 최상단 제목 -->
+  <h1 id="team-title">팀원 건강 설문</h1>
+  
+  <!-- 날짜와 시간 표시 -->
+  <div id="date-time"></div>
+
+  <!-- 팀 목록 제목 -->
+  <div id="team-list-header">
+    <div>이름</div>
+    <div>제출 여부</div>
+    <div>제출 시간</div>
+    <div>제출 진행</div>
+  </div>
+
+  <!-- 팀 목록 -->
   <ul id="team-list"></ul>
+
   <script src="script.js"></script>
 </body>
 </html>
