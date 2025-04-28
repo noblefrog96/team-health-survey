@@ -1,11 +1,17 @@
-const axios = require('axios');
-const qs = require('qs');
-const { google } = require('googleapis');
+// 한국 시간으로 변환하는 함수
+function getKST() {
+  const date = new Date();
+  const koreaOffset = 9 * 60; // 한국은 UTC+9
+  const localDate = new Date(date.getTime() + (koreaOffset - date.getTimezoneOffset()) * 60000);
+  
+  // 'YYYY-MM-DD HH:mm:ss' 형식으로 반환
+  return localDate.toISOString().replace('T', ' ').slice(0, 19);
+}
 
+// survey.js 수정
 exports.handler = async (event) => {
   try {
     const { name } = JSON.parse(event.body);
-    const submissionTime = new Date().toLocaleString(); // 제출 시간
 
     // 1. 구글폼 제출
     const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc5zicXdV113lzuk7Qe78ncIcmpEpN8QHK33m4k_-lqoMtbPg/formResponse';
@@ -38,6 +44,10 @@ exports.handler = async (event) => {
     const sheets = google.sheets({ version: 'v4', auth });
 
     const SPREADSHEET_ID = '1BZ5tMYdt8yHVyPz58J-B7Y5aLd9-ukGbeu7hd_BHTYI';
+
+    // 한국 표준시로 제출 시간 기록
+    const submissionTime = getKST();
+
     const sheetData = await sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
       range: 'kensol_sinteam!A2:A'
@@ -46,11 +56,20 @@ exports.handler = async (event) => {
     const names = sheetData.data.values.flat();
     const idx = names.indexOf(name);
     if (idx !== -1) {
+      // 제출 여부 업데이트
       await sheets.spreadsheets.values.update({
         spreadsheetId: SPREADSHEET_ID,
         range: `kensol_sinteam!B${idx + 2}`,
         valueInputOption: 'RAW',
-        requestBody: { values: [['✅', submissionTime]] } // 제출 시간 추가
+        requestBody: { values: [['✅']] }
+      });
+
+      // 제출 시간 기록
+      await sheets.spreadsheets.values.update({
+        spreadsheetId: SPREADSHEET_ID,
+        range: `kensol_sinteam!C${idx + 2}`,
+        valueInputOption: 'RAW',
+        requestBody: { values: [[submissionTime]] }
       });
     }
 
