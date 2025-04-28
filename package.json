@@ -1,0 +1,8 @@
+{
+  "name": "team-health-survey",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "echo 'No build step required for static site'"
+  },
+  "dependencies": {}
+}
