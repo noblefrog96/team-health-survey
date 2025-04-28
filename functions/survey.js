@@ -6,7 +6,7 @@ exports.handler = async (event) => {
   const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc5zicXdV113lzuk7Qe78ncIcmpEpN8QHK33m4k_-lqoMtbPg/formResponse';
   const formData = {
     'entry.2099356774': '케이엔솔',
-    'entry.1432170741': name,  // 이름을 동적으로 변경
+    'entry.1432170741': '윤하늘',  // 이름을 동적으로 변경
     'entry.761078236': 'FFU 자동제어 설치',
     'entry.1435088501': '위 개인정보 수집이용에 동의합니다',
     'entry.1110756743': '아니오',
