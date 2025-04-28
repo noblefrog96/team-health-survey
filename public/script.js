@@ -18,6 +18,30 @@ async function fetchStatus() {
   return res.ok ? res.json() : [];
 }
 
+async function handleSubmit(name) {
+  try {
+    const response = await fetch('/.netlify/functions/survey', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name })
+    });
+
+    const result = await response.json();  // 서버에서 반환된 응답을 JSON으로 변환
+
+    if (result.success) {
+      alert(result.message);  // 성공 메시지 출력
+    } else {
+      alert(result.message);  // 실패 메시지 출력
+    }
+
+  } catch (error) {
+    console.error('Error:', error);
+    alert('서버와의 통신 중 오류가 발생했습니다.');
+  }
+}
+
 function render(statuses) {
   list.innerHTML = '';
   team.forEach(name => {
@@ -36,17 +60,7 @@ function render(statuses) {
     const btn = document.createElement('button');
     btn.textContent = '제출';
     btn.disabled = s?.submitted;
-    btn.onclick = async () => {
-      btn.disabled = true;
-      await fetch('/.netlify/functions/survey', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name })
-      });
-      render(await fetchStatus());
-    };
+    btn.onclick = () => handleSubmit(name);  // 서버에 데이터 보내는 함수 호출
 
     li.append(span, timeSpan, btn); // 시간도 추가
     list.append(li);
