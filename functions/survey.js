@@ -73,5 +73,13 @@ exports.handler = async (event) => {
     });
   }
 
-  return { statusCode: 200, body: JSON.stringify({ success: true }) };
+    return { 
+    statusCode: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',   // 모든 도메인 허용
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+    body: JSON.stringify({ success: true, message: '제출이 완료되었습니다!' })
+  };
+
 };
