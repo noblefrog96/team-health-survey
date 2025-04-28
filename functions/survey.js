@@ -47,3 +47,31 @@ exports.handler = async (event) => {
   await axios.post(FORM_URL, qs.stringify(formData), {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
   });
+
+  // 2) 스프레드시트에 ✅ 기록
+  const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT);
+  const auth = new google.auth.GoogleAuth({
+    credentials: serviceAccount,
+    scopes: ['https://www.googleapis.com/auth/spreadsheets']
+  });
+  const client = await auth.getClient();
+  const sheets = google.sheets({ version: 'v4', auth: client });
+
+  const SPREADSHEET_ID = '1BZ5tMYdt8yHVyPz58J-B7Y5aLd9-ukGbeu7hd_BHTYI';
+  const list = await sheets.spreadsheets.values.get({
+    spreadsheetId: SPREADSHEET_ID,
+    range: 'Sheet1!A2:A11'
+  });
+  const names = list.data.values.flat();
+  const idx = names.indexOf(name);
+  if (idx !== -1) {
+    await sheets.spreadsheets.values.update({
+      spreadsheetId: SPREADSHEET_ID,
+      range: Sheet1!B${idx+2},
+      valueInputOption: 'RAW',
+      requestBody: { values: [['✅']] }
+    });
+  }
+
+  return { statusCode: 200, body: JSON.stringify({ success: true }) };
+};
