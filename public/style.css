@@ -71,9 +71,9 @@ body {
 /* 버튼 스타일 */
 button {
   margin-left: 10px;
-  padding: 5px 15px;
+  padding: 5px 12px;  /* 버튼 크기 줄이기 */
   font-size: 1em;
-  background-color: #4CAF50;
+  background-color: #007BFF; /* 파란색으로 변경 */
   color: white;
   border: none;
   border-radius: 5px;
