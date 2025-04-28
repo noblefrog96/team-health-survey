@@ -18,8 +18,12 @@ async function fetchStatus() {
   return res.ok ? res.json() : [];
 }
 
-async function handleSubmit(name) {
+async function handleSubmit(name, btn) {
   try {
+    // 버튼 텍스트를 "제출 중..."으로 변경하고 비활성화
+    btn.textContent = '제출 중...';
+    btn.disabled = true;
+
     const response = await fetch('/.netlify/functions/survey', {
       method: 'POST',
       headers: {
@@ -36,7 +40,7 @@ async function handleSubmit(name) {
       alert(result.message);  // 실패 메시지 출력
     }
 
-    // 제출 후 버튼 비활성화 처리 및 "제출됨"으로 텍스트 변경
+    // 제출 후 버튼 텍스트를 "제출완료"로 변경하고 비활성화 처리
     render(await fetchStatus());  // 상태를 다시 렌더링하여 버튼을 비활성화 상태로 갱신
 
   } catch (error) {
@@ -69,7 +73,7 @@ function render(statuses) {
       btn.disabled = false;  // 제출되지 않으면 버튼 활성화
     }
 
-    btn.onclick = () => handleSubmit(name);  // 서버에 데이터 보내는 함수 호출
+    btn.onclick = () => handleSubmit(name, btn);  // 서버에 데이터 보내는 함수 호출
 
     li.append(span, timeSpan, btn); // 시간도 추가
     list.append(li);
