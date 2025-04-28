@@ -7,11 +7,11 @@ exports.handler = async (event) => {
   try {
     const { name } = JSON.parse(event.body);
 
-    // ✅ 1. 회사 구글폼 자동 제출 (이제 서버에서 대신 요청)
+    // 1. 구글폼 제출
     const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc5zicXdV113lzuk7Qe78ncIcmpEpN8QHK33m4k_-lqoMtbPg/formResponse';
     const formData = {
       'entry.2099356774': '케이엔솔',
-      'entry.1432170741': name, // 동적으로 이름 넣기
+      'entry.1432170741': name,
       'entry.761078236': 'FFU 자동제어 설치',
       'entry.1435088501': '위 개인정보 수집이용에 동의합니다',
       'entry.1110756743': '아니오',
@@ -27,16 +27,18 @@ exports.handler = async (event) => {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
 
-    // ✅ 2. 스프레드시트에 ✅ 기록
+    // 2. 구글 스프레드시트 업데이트
     const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT);
-    const auth = new google.auth.GoogleAuth({
-      credentials: serviceAccount,
-      scopes: ['https://www.googleapis.com/auth/spreadsheets']
+    const auth = new google.auth.JWT({
+      email: serviceAccount.client_email,
+      key: serviceAccount.private_key,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
-    const client = await auth.getClient();
-    const sheets = google.sheets({ version: 'v4', auth: client });
+
+    const sheets = google.sheets({ version: 'v4', auth });
 
     const SPREADSHEET_ID = '1BZ5tMYdt8yHVyPz58J-B7Y5aLd9-ukGbeu7hd_BHTYI';
+
     const sheetData = await sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
       range: 'kensol_sinteam!A2:A11'
@@ -53,12 +55,12 @@ exports.handler = async (event) => {
       });
     }
 
-    // ✅ 3. 성공 응답
+    // 3. 성공 응답
     return {
       statusCode: 200,
       body: JSON.stringify({ success: true, message: '제출이 완료되었습니다!' })
     };
-    
+
   } catch (error) {
     console.error('Error in survey submission:', error.message);
     return {
