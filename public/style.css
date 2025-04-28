@@ -79,6 +79,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
+  max-width: 120px;  /* 버튼 최대 너비 설정 */
 }
 
 button:disabled {
@@ -88,4 +89,36 @@ button:disabled {
 /* 상태 표시 스타일 */
 #team-list li span {
   font-size: 1.2em;
+}
+
+/* 모바일 환경에 맞게 스타일 조정 */
+@media (max-width: 600px) {
+  /* 제목 크기 및 여백 조정 */
+  #team-title {
+    font-size: 1.5em; /* 모바일에서 조금 더 작은 크기 */
+    margin-top: 15px;
+  }
+
+  /* 날짜 및 시간 표시 크기 및 여백 조정 */
+  #date-time {
+    font-size: 1.1em;
+    margin-top: 10px;
+  }
+
+  /* 팀 목록 제목의 그리드 레이아웃을 세로로 변경 */
+  #team-list-header {
+    grid-template-columns: 1fr 1fr; /* 2열로 변경 */
+  }
+
+  /* 팀 목록 각 항목의 그리드 레이아웃을 세로로 변경 */
+  #team-list li {
+    grid-template-columns: 1fr 1fr; /* 2열로 변경 */
+  }
+
+  /* 버튼 크기 조정 */
+  button {
+    padding: 6px 12px;
+    font-size: 0.9em;
+    max-width: 100%; /* 버튼을 화면 너비에 맞게 확대 */
+  }
 }
