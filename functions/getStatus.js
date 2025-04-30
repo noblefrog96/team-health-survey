@@ -1,3 +1,4 @@
+// team-health-survey/functions/getStatus.js
 const { google } = require('googleapis');
 
 exports.handler = async () => {
@@ -21,12 +22,11 @@ exports.handler = async () => {
     });
 
     const data = res.data.values || [];
-    
     const statuses = data.map(row => ({
       name: row[0],
       submitted: row[1] === '✅',
-      submittedTime: row[2] ? formatAMPM(row[2]) : null,
-      phone: row[3] || null  // 휴대폰 번호도 내려보냄
+      submittedTime: row[2] || '미제출',
+      phone: row[3] || ''
     }));
 
     return {
