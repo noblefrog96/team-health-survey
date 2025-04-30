@@ -45,7 +45,7 @@ function render(statuses) {
     nameDiv.textContent = s.name;
 
     const statusDiv = document.createElement('div');
-    statusDiv.textContent = s.submitted ? s.submittedTime : '❌';
+    statusDiv.textContent = s.submitted ? ✅ s.submittedTime : '❌';
 
     const phoneSelect = document.createElement('select');
     const shuffledPhones = shuffle(statuses.map(x => x.phone));
