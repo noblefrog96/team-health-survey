@@ -65,7 +65,7 @@ function render(statuses) {
 
     const btnDiv = document.createElement('div');
     const btn = document.createElement('button');
-    btn.textContent = s.submitted ? '제출완료' : '제출';
+    btn.textContent = s.submitted ? '제출됨' : '제출';
     btn.disabled = s.submitted;
     btn.onclick = () => {
       if (phoneSelect.value !== s.phone) {
