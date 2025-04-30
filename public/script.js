@@ -5,7 +5,7 @@ function updateDateTime() {
   const now = new Date();
   const dayNames = ["일","월","화","수","목","금","토"];
   const formattedDate = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()} (${dayNames[now.getDay()]})`;
-  dateTime.textContent = `${formattedDate}`;
+  dateTime.textContent = `오늘은 ${formattedDate}입니다.`;
 }
 updateDateTime();
 
@@ -14,7 +14,7 @@ async function fetchStatus() {
   return res.ok ? res.json() : [];
 }
 
-async function handleSubmit(name, phone, btn, phoneSelect) {
+async function handleSubmit(name, phone, btn) {
   btn.textContent = '제출 중...'; btn.disabled = true;
   const res = await fetch('/.netlify/functions/survey', {
     method:'POST',
@@ -26,16 +26,6 @@ async function handleSubmit(name, phone, btn, phoneSelect) {
   render(await fetchStatus());
 }
 
-// Fisher–Yates shuffle 함수
-function shuffle(array) {
-  const a = [...array];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
 function render(statuses) {
   list.innerHTML = '';
   statuses.forEach(s => {
@@ -45,16 +35,16 @@ function render(statuses) {
     nameDiv.textContent = s.name;
 
     const statusDiv = document.createElement('div');
-    statusDiv.textContent = s.submitted ? ✅ s.submittedTime : '❌';
+    const text = s.submitted
+      ? `✅ ${s.submittedTime}`
+      : '❌';
+    statusDiv.textContent = text;
 
     const phoneSelect = document.createElement('select');
-    const shuffledPhones = shuffle(statuses.map(x => x.phone));
-    phoneSelect.innerHTML = shuffledPhones
-      .map(p => `<option value="${p}">${p}</option>`)
+    phoneSelect.innerHTML = statuses
+      .map(x => `<option value="${x.phone}">${x.phone}</option>`)
       .join('');
     phoneSelect.value = '';
-
-    if (s.submitted) phoneSelect.disabled = true;
 
     const btnDiv = document.createElement('div');
     const btn = document.createElement('button');
@@ -65,7 +55,7 @@ function render(statuses) {
         alert('휴대폰 번호를 다시 확인해주세요.');
         return;
       }
-      handleSubmit(s.name, s.phone, btn, phoneSelect);
+      handleSubmit(s.name, s.phone, btn);
     };
     btnDiv.appendChild(btn);
 
