@@ -14,14 +14,15 @@ async function fetchStatus() {
   return res.ok ? res.json() : [];
 }
 
+// 제출 처리: 버튼·드롭다운 비활성화
 async function handleSubmit(name, phone, btn, phoneSelect) {
-  btn.textContent = '제출 중...'; 
+  btn.textContent = '제출 중...';
   btn.disabled = true;
   phoneSelect.disabled = true;
-  
+
   const res = await fetch('/.netlify/functions/survey', {
-    method:'POST',
-    headers:{ 'Content-Type':'application/json' },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name, phone })
   });
 
@@ -30,7 +31,7 @@ async function handleSubmit(name, phone, btn, phoneSelect) {
   render(await fetchStatus());
 }
 
-// Fisher–Yates shuffle 함수
+// 배열 무작위 섞기
 function shuffle(array) {
   const a = [...array];
   for (let i = a.length - 1; i > 0; i--) {
@@ -45,24 +46,27 @@ function render(statuses) {
   statuses.forEach(s => {
     const li = document.createElement('li');
 
+    // 이름
     const nameDiv = document.createElement('div');
     nameDiv.textContent = s.name;
 
+    // 상태 표시 (한 줄 고정)
     const statusDiv = document.createElement('div');
-    const text = s.submitted
+    statusDiv.classList.add('status');
+    statusDiv.textContent = s.submitted
       ? `✅ ${s.submittedTime}`
       : '❌';
-    statusDiv.textContent = text;
 
+    // 휴대폰 드롭다운 (랜덤)
     const phoneSelect = document.createElement('select');
-    const shuffledPhones = shuffle(statuses.map(x => x.phone));
-    phoneSelect.innerHTML = shuffledPhones
+    const shuffled = shuffle(statuses.map(x => x.phone));
+    phoneSelect.innerHTML = shuffled
       .map(p => `<option value="${p}">${p}</option>`)
       .join('');
     phoneSelect.value = '';
-
     if (s.submitted) phoneSelect.disabled = true;
 
+    // 버튼
     const btnDiv = document.createElement('div');
     const btn = document.createElement('button');
     btn.textContent = s.submitted ? '제출완료' : '제출';
@@ -81,4 +85,6 @@ function render(statuses) {
   });
 }
 
-(async () => { render(await fetchStatus()); })();
+(async () => {
+  render(await fetchStatus());
+})();
