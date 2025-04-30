@@ -27,6 +27,37 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
+/* 이름 */
+.card-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #222;
+}
+
+/* 상태 */
+.card-status {
+  font-size: 0.95rem;
+  color: #444;
+  white-space: nowrap;
+}
+
+/* select, button */
+#team-list li select {
+  padding: 6px;
+  border: 1px solid #ccd0da;
+  border-radius: 6px;
+}
+#team-list li button {
+  background: #4f7fff;
+  color: #fff;
+  border-radius: 6px;
+  padding: 6px 0;
+  font-size: 0.9rem;
+}
+#team-list li button:disabled {
+  background: #ccc;
+}
+
 /* 각 카드 내부 요소 간격 */
 #team-list li > div,
 #team-list li > select,
