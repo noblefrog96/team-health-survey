@@ -1,4 +1,3 @@
-// team-health-survey/functions/getStatus.js
 const { google } = require('googleapis');
 
 exports.handler = async () => {
@@ -13,7 +12,6 @@ exports.handler = async () => {
     const sheets = google.sheets({ version: 'v4', auth: client });
 
     const SPREADSHEET_ID = '1BZ5tMYdt8yHVyPz58J-B7Y5aLd9-ukGbeu7hd_BHTYI';
-    // A: 이름, B: ✅, C: 시간, D: 휴대폰
     const RANGE = 'kensol_sinteam!A2:D11';
 
     const res = await sheets.spreadsheets.values.get({
@@ -25,15 +23,17 @@ exports.handler = async () => {
 
     // 시간 문자열을 'AM 02:36:10' 형식으로 변환하는 함수
     function formatAMPM(timeStr) {
-      const date = new Date(timeStr.replace(' ', 'T')); // ISO 형식으로 변환
+      const date = new Date(timeStr.replace(' ', 'T'));
       if (isNaN(date)) return null;
 
-      const hours = date.getHours();
+      let hours = date.getHours();
       const minutes = String(date.getMinutes()).padStart(2, '0');
       const seconds = String(date.getSeconds()).padStart(2, '0');
       const ampm = hours >= 12 ? 'PM' : 'AM';
-      const hour12 = String(hours % 12 || 12).padStart(2, '0');
-      return `${ampm} ${hour12}:${minutes}:${seconds}`;
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      const hourStr = String(hours).padStart(2, '0');
+      return `${ampm} ${hourStr}:${minutes}:${seconds}`;
     }
 
     const statuses = data.map(row => {
