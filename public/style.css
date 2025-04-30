@@ -1,32 +1,87 @@
 body {
   font-family: Arial, sans-serif;
-  margin:0; padding:0;
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:flex-start;
-  background:#f7f7f7; padding:20px 0;
+  margin: 0; padding: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-start;
+  background: #f7f7f7; padding: 20px 0;
 }
-#team-title { text-align:center; font-size:2em; margin-bottom:10px; }
-#date-time { text-align:center; margin-bottom:20px; font-size:1.1em; }
+
+#team-title {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+#date-time {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.1em;
+}
 
 #team-list-header, #team-list li {
-  display:grid;
+  display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap:10px; width:90%; text-align:center;
-  align-items:center;
+  gap: 10px;
+  width: 90%;
+  text-align: center;
+  align-items: center;
 }
+
 #team-list-header {
-  font-weight:bold; background:#e0e0e0;
-  padding:8px; border-radius:5px; margin-bottom:10px;
+  font-weight: bold;
+  background: #e0e0e0;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
+
 #team-list li {
-  background:#fff; padding:10px; margin-bottom:8px;
-  border-radius:5px; box-shadow:0 1px 3px rgba(0,0,0,0.1);
+  background: #fff;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+
+/* 제출 완료 스타일 */
+li.submitted {
+  background-color: #f0f0f0;
+  color: #888;
+}
+
 button {
-  padding:6px 12px; border:none; border-radius:4px;
-  background:#007BFF; color:#fff; cursor:pointer;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  background: #007BFF;
+  color: #fff;
+  cursor: pointer;
 }
+
 button:disabled {
-  background:#ccc; cursor:not-allowed;
+  background: #ccc;
+  cursor: not-allowed;
 }
-select { padding:4px; }
+
+select {
+  padding: 4px;
+}
+
+select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 반응형 (모바일 대응) */
+@media (max-width: 600px) {
+  #team-list-header,
+  #team-list li {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  #team-list-header > div,
+  #team-list li > div {
+    padding: 4px 0;
+  }
+}
