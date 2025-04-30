@@ -1,85 +1,129 @@
-/* ─ 카드 기본 스타일 ─ */
-#team-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 12px;
-  width: 100%; max-width: 480px; margin: 0 auto 20px;
+/* 전체 레이아웃 설정 */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
   padding: 0;
-  list-style: none;
-}
-#team-list li.card {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  padding: 12px;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  transition: transform 0.1s, box-shadow 0.1s;
-}
-#team-list li.card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  align-items: center;
+  justify-content: flex-start; /* 최상단 부분이 짤리는 문제 해결을 위해 상단 정렬 */
+  height: 100vh;
+  background-color: #f7f7f7;
+  padding-top: 20px; /* 상단 여백 추가 */
 }
 
-/* ─ 필드별 스타일 ─ */
-.field {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-}
-.field-label {
-  font-size: 0.85rem;
-  color: #666;
-  margin-bottom: 4px;
-}
-.field-value {
-  font-size: 1rem;
+/* 제목 */
+#team-title {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
   color: #333;
-  white-space: nowrap;
 }
 
-/* ─ 드롭다운 스타일 ─ */
-.field select {
-  padding: 6px;
-  font-size: 0.95rem;
-  border: 1px solid #ccd0da;
-  border-radius: 6px;
-  background: #fff;
-}
-.field select:disabled {
-  background: #f0f2f5;
-  color: #888;
+/* 날짜와 시간 표시 */
+#date-time {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center; /* 가운데 정렬 */
 }
 
-/* ─ 버튼 스타일 ─ */
-.field button {
-  width: 100%;             /* 버튼 너비를 필드 가득 채우기 */
-  padding: 8px 0;          /* 세로 패딩 고정 */
-  font-size: 0.95rem;
-  font-weight: 500;
+/* 팀 목록 제목 */
+#team-list-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-align: center; /* 가운데 정렬 */
+  background-color: #e0e0e0;
+  padding: 10px;
+  border-radius: 5px;
+  width: 80%;
+}
+
+/* 팀 목록 */
+#team-list {
+  list-style: none;
+  padding: 0;
+  width: 80%;
+}
+
+/* 팀 목록 각 항목 스타일 */
+#team-list li {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr; /* 가로 1열로 항목들 나열 */
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 15px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center; /* 가운데 정렬 */
+}
+
+/* 각 항목 간 간격 */
+#team-list li > * {
+  margin-bottom: 8px;
+}
+
+/* 제출 시간 스타일 */
+#team-list li .time {
+  font-size: 0.9em;
+  color: gray;
+}
+
+/* 버튼 스타일 (롤백) */
+button {
+  margin-left: 10px;
+  padding: 8px 16px;  /* 이전 버튼 크기 */
+  font-size: 1em;
+  background-color: #007BFF; /* 파란색으로 변경 */
+  color: white;
   border: none;
-  border-radius: 6px;
-  background: #4f7fff;
-  color: #fff;
+  border-radius: 5px;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: background 0.2s;
-}
-.field button:hover:not(:disabled) {
-  background: #3a6fe0;
-}
-.field button:disabled {
-  background: #d1d5db;
-  color: #777;
-  cursor: default;
-  box-shadow: none;
+  text-align: center;
 }
 
-/* ─ 반응형 ─ */
-@media (max-width: 500px) {
-  #team-list {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 10px;
+button:disabled {
+  background-color: #cccccc;
+}
+
+/* 상태 표시 스타일 */
+#team-list li span {
+  font-size: 1.2em;
+}
+
+/* 모바일 환경에 맞게 스타일 조정 */
+@media (max-width: 600px) {
+  /* 제목 크기 및 여백 조정 */
+  #team-title {
+    font-size: 1.5em; /* 모바일에서 조금 더 작은 크기 */
+    margin-top: 15px;
+  }
+
+  /* 날짜 및 시간 표시 크기 및 여백 조정 */
+  #date-time {
+    font-size: 1.1em;
+    margin-top: 10px;
+  }
+
+  /* 팀 목록 제목의 그리드 레이아웃을 세로로 변경 */
+  #team-list-header {
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* 1열로 변경 */
+  }
+
+  /* 팀 목록 각 항목의 그리드 레이아웃을 세로로 변경 */
+  #team-list li {
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* 모바일에서도 항목들이 1열로 배치 */
+    padding: 15px; /* 세로 항목이 많아졌으므로 패딩 조정 */
+  }
+
+  /* 버튼 크기 조정 */
+  button {
+    padding: 6px 12px;
+    font-size: 0.9em;
   }
 }
