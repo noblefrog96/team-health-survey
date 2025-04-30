@@ -40,45 +40,73 @@ function shuffle(array) {
   return a;
 }
 
-function render(statuses) {
-  list.innerHTML = '';
-  statuses.forEach(s => {
-    const li = document.createElement('li');
+ function render(statuses) {
+   list.innerHTML = '';
+   statuses.forEach(s => {
+-    const li = document.createElement('li');
++    const li = document.createElement('li');
++    li.classList.add('card');
 
-    const nameDiv = document.createElement('div');
-    nameDiv.textContent = s.name;
+     // 이름
+-    const nameDiv = document.createElement('div');
+-    nameDiv.textContent = s.name;
++    const nameField = document.createElement('div');
++    nameField.classList.add('field');
++    nameField.innerHTML = `
++      <span class="field-label">이름</span>
++      <span class="field-value">${s.name}</span>
++    `;
 
-    const statusDiv = document.createElement('div');
-    const text = s.submitted
-      ? `✅ ${s.submittedTime}`
-      : '❌';
-    statusDiv.textContent = text;
+     // 상태
+-    const statusDiv = document.createElement('div');
+-    statusDiv.classList.add('status');
+-    statusDiv.textContent = s.submitted
+-      ? `✅ ${s.submittedTime}`
+-      : '❌';
++    const statusField = document.createElement('div');
++    statusField.classList.add('field');
++    statusField.innerHTML = `
++      <span class="field-label">제출 현황</span>
++      <span class="field-value">${s.submitted ? `✅ ${s.submittedTime}` : '❌'}</span>
++    `;
 
-    const phoneSelect = document.createElement('select');
-    const shuffledPhones = shuffle(statuses.map(x => x.phone));
-    phoneSelect.innerHTML = shuffledPhones
-      .map(p => `<option value="${p}">${p}</option>`)
-      .join('');
-    phoneSelect.value = '';
+     // 휴대폰 드롭다운
+-    const phoneSelect = document.createElement('select');
++    const phoneField = document.createElement('div');
++    phoneField.classList.add('field');
++    const phoneSelect = document.createElement('select');
+     const shuffled = shuffle(statuses.map(x => x.phone));
+     phoneSelect.innerHTML = shuffled
+       .map(p => `<option value="${p}">${p}</option>`)
+       .join('');
+     phoneSelect.value = '';
+     if (s.submitted) phoneSelect.disabled = true;
++    phoneField.innerHTML = `<span class="field-label">휴대폰 번호</span>`;
++    phoneField.appendChild(phoneSelect);
 
-    if (s.submitted) phoneSelect.disabled = true;
+     // 버튼
+-    const btnDiv = document.createElement('div');
+-    const btn = document.createElement('button');
++    const actionField = document.createElement('div');
++    actionField.classList.add('field');
++    const btn = document.createElement('button');
+     btn.textContent = s.submitted ? '제출완료' : '제출';
+     btn.disabled = s.submitted;
+     btn.onclick = () => {
+       if (phoneSelect.value !== s.phone) {
+         alert('휴대폰 번호를 다시 확인해주세요.');
+         return;
+       }
+       handleSubmit(s.name, s.phone, btn, phoneSelect);
+     };
+-    btnDiv.appendChild(btn);
++    actionField.appendChild(btn);
 
-    const btnDiv = document.createElement('div');
-    const btn = document.createElement('button');
-    btn.textContent = s.submitted ? '제출완료' : '제출';
-    btn.disabled = s.submitted;
-    btn.onclick = () => {
-      if (phoneSelect.value !== s.phone) {
-        alert('휴대폰 번호를 다시 확인해주세요.');
-        return;
-      }
-      handleSubmit(s.name, s.phone, btn, phoneSelect);
-    };
-    btnDiv.appendChild(btn);
+-    li.append(nameDiv, statusDiv, phoneSelect, btnDiv);
++    li.append(nameField, statusField, phoneField, actionField);
+     list.append(li);
+   });
+ }
 
-    li.append(nameDiv, statusDiv, phoneSelect, btnDiv);
-    list.append(li);
-  });
-}
 
 (async () => { render(await fetchStatus()); })();
