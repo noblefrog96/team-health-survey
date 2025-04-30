@@ -30,3 +30,7 @@ button:disabled {
   background:#ccc; cursor:not-allowed;
 }
 select { padding:4px; }
+
+.status {
+  white-space: nowrap;
+}
