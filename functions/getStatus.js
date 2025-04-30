@@ -1,3 +1,4 @@
+// getStatus.js
 const { google } = require('googleapis');
 
 exports.handler = async () => {
@@ -12,39 +13,20 @@ exports.handler = async () => {
     const sheets = google.sheets({ version: 'v4', auth: client });
 
     const SPREADSHEET_ID = '1BZ5tMYdt8yHVyPz58J-B7Y5aLd9-ukGbeu7hd_BHTYI';
-    const RANGE = 'kensol_sinteam!A2:D11';
+    const RANGE = 'kensol_sinteam!A2:C11'; // A, B, C 열을 가져옴
 
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
       range: RANGE,
     });
 
-    const data = res.data.values || [];
+    const data = res.data.values;
 
-    // 시간 문자열을 'AM 02:36:10' 형식으로 변환하는 함수
-    function formatAMPM(timeStr) {
-      const date = new Date(timeStr.replace(' ', 'T'));
-      if (isNaN(date)) return null;
-
-      const hours = date.getHours();
-      const minutes = String(date.getMinutes()).padStart(2, '0');
-      const seconds = String(date.getSeconds()).padStart(2, '0');
-      const ampm = hours >= 12 ? 'PM' : 'AM';
-      const hour12 = String(hours % 12 || 12).padStart(2, '0');
-      return `${ampm} ${hour12}:${minutes}:${seconds}`;
-    }
-
-    const statuses = data.map(row => {
-      const submitted = row[1] === '✅';
-      const timeFormatted = row[2] ? formatAMPM(row[2]) : null;
-
-      return {
-        name: row[0],
-        submitted,
-        submittedTime: submitted && timeFormatted ? `✅ ${timeFormatted}` : null,
-        phone: row[3] || null
-      };
-    });
+    const statuses = data.map(row => ({
+      name: row[0],       // 이름
+      submitted: row[1] === '✅', // 제출 여부
+      submittedTime: row[2] || '미제출' // 제출 시간
+    }));
 
     return {
       statusCode: 200,
