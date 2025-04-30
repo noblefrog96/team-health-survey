@@ -1,4 +1,4 @@
-// getStatus.js
+// team-health-survey/functions/getStatus.js
 const { google } = require('googleapis');
 
 exports.handler = async () => {
@@ -13,19 +13,20 @@ exports.handler = async () => {
     const sheets = google.sheets({ version: 'v4', auth: client });
 
     const SPREADSHEET_ID = '1BZ5tMYdt8yHVyPz58J-B7Y5aLd9-ukGbeu7hd_BHTYI';
-    const RANGE = 'kensol_sinteam!A2:C11'; // A, B, C 열을 가져옴
+    // A: 이름, B: ✅, C: 시간, D: 휴대폰
+    const RANGE = 'kensol_sinteam!A2:D11';
 
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
       range: RANGE,
     });
 
-    const data = res.data.values;
-
+    const data = res.data.values || [];
     const statuses = data.map(row => ({
-      name: row[0],       // 이름
-      submitted: row[1] === '✅', // 제출 여부
-      submittedTime: row[2] || '미제출' // 제출 시간
+      name: row[0],
+      submitted: row[1] === '✅',
+      submittedTime: row[2] || '미제출',
+      phone: row[3] || ''
     }));
 
     return {
