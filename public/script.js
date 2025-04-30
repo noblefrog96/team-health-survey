@@ -7,8 +7,7 @@ function updateDateTime() {
   const now = new Date();
   const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
   const formattedDate = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} (${dayNames[now.getDay()]})`;
-  const formattedTime = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
-  dateTime.textContent = `오늘은 ${formattedDate}이고, 현재 시간은 ${formattedTime}입니다.`;
+  dateTime.textContent = `${formattedDate}`;
 }
 
 updateDateTime(); // 페이지 로드 시 날짜와 시간 표시
