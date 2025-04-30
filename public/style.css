@@ -74,17 +74,19 @@ body {
   color: gray;
 }
 
-/* 버튼 스타일 (롤백) */
+/* 버튼 공통 스타일 */
 button {
-  margin-left: 10px;
-  padding: 8px 16px;  /* 이전 버튼 크기 */
-  font-size: 1em;
-  background-color: #007BFF; /* 파란색으로 변경 */
+  width: 100%; /* 버튼 너비를 카드 전체 너비로 맞추기 */
+  padding: 8px 0; /* 세로 패딩 고정 */
+  font-size: 1em; /* 버튼 텍스트 크기 고정 */
+  background-color: #007BFF; /* 파란색 */
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
+  white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 설정 */
+  box-sizing: border-box; /* padding 포함한 너비 계산 */
 }
 
 button:disabled {
@@ -123,7 +125,7 @@ button:disabled {
 
   /* 버튼 크기 조정 */
   button {
-    padding: 6px 12px;
-    font-size: 0.9em;
+    padding: 10px 0; /* 모바일 화면에서 더 넓은 세로 여백 */
+    font-size: 1em; /* 폰트 크기 일정하게 */
   }
 }
