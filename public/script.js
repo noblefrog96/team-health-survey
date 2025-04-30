@@ -5,7 +5,7 @@ function updateDateTime() {
   const now = new Date();
   const dayNames = ["일","월","화","수","목","금","토"];
   const formattedDate = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()} (${dayNames[now.getDay()]})`;
-  dateTime.textContent = `오늘은 ${formattedDate}입니다.`;
+  dateTime.textContent = `${formattedDate}`;
 }
 updateDateTime();
 
