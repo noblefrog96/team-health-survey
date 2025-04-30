@@ -14,16 +14,30 @@ async function fetchStatus() {
   return res.ok ? res.json() : [];
 }
 
-async function handleSubmit(name, phone, btn) {
-  btn.textContent = '제출 중...'; btn.disabled = true;
+async function handleSubmit(name, phone, btn, phoneSelect) {
+  btn.textContent = '제출 중...'; 
+  btn.disabled = true;
+  phoneSelect.disabled = true;
+  
   const res = await fetch('/.netlify/functions/survey', {
     method:'POST',
     headers:{ 'Content-Type':'application/json' },
     body: JSON.stringify({ name, phone })
   });
+
   const result = await res.json();
   alert(result.message);
   render(await fetchStatus());
+}
+
+// Fisher–Yates shuffle 함수
+function shuffle(array) {
+  const a = [...array];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
 function render(statuses) {
@@ -41,10 +55,13 @@ function render(statuses) {
     statusDiv.textContent = text;
 
     const phoneSelect = document.createElement('select');
-    phoneSelect.innerHTML = statuses
-      .map(x => `<option value="${x.phone}">${x.phone}</option>`)
+    const shuffledPhones = shuffle(statuses.map(x => x.phone));
+    phoneSelect.innerHTML = shuffledPhones
+      .map(p => `<option value="${p}">${p}</option>`)
       .join('');
     phoneSelect.value = '';
+
+    if (s.submitted) phoneSelect.disabled = true;
 
     const btnDiv = document.createElement('div');
     const btn = document.createElement('button');
@@ -55,7 +72,7 @@ function render(statuses) {
         alert('휴대폰 번호를 다시 확인해주세요.');
         return;
       }
-      handleSubmit(s.name, s.phone, btn);
+      handleSubmit(s.name, s.phone, btn, phoneSelect);
     };
     btnDiv.appendChild(btn);
 
@@ -64,4 +81,4 @@ function render(statuses) {
   });
 }
 
-(async() => { render(await fetchStatus()); })();
+(async () => { render(await fetchStatus()); })();
