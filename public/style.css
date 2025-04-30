@@ -1,67 +1,85 @@
-/* 팀 목록을 카드 그리드로 변경 */
+/* ─ 카드 기본 스타일 ─ */
 #team-list {
   display: grid;
-  /* 최소 카드 너비 160px, 최대 한 칸이 1fr */
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 12px;
-  width: 100%;
-  max-width: 480px;  /* 전체 최대 폭 */
+  width: 100%; max-width: 480px; margin: 0 auto 20px;
   padding: 0;
-  margin: 0 auto 20px;
+  list-style: none;
 }
-
-/* 개별 카드 스타일 */
-#team-list li {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+#team-list li.card {
   background: #fff;
-  padding: 12px;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  text-align: center;
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  transition: transform 0.1s, box-shadow 0.1s;
 }
-#team-list li:hover {
+#team-list li.card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
-/* 이름 */
-.card-name {
-  font-weight: 600;
-  font-size: 1rem;
-  color: #222;
+/* ─ 필드별 스타일 ─ */
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
 }
-
-/* 상태 */
-.card-status {
-  font-size: 0.95rem;
-  color: #444;
+.field-label {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 4px;
+}
+.field-value {
+  font-size: 1rem;
+  color: #333;
   white-space: nowrap;
 }
 
-/* select, button */
-#team-list li select {
+/* ─ 드롭다운 스타일 ─ */
+.field select {
   padding: 6px;
+  font-size: 0.95rem;
   border: 1px solid #ccd0da;
   border-radius: 6px;
+  background: #fff;
 }
-#team-list li button {
-  background: #4f7fff;
-  color: #fff;
-  border-radius: 6px;
-  padding: 6px 0;
-  font-size: 0.9rem;
-}
-#team-list li button:disabled {
-  background: #ccc;
+.field select:disabled {
+  background: #f0f2f5;
+  color: #888;
 }
 
-/* 각 카드 내부 요소 간격 */
-#team-list li > div,
-#team-list li > select,
-#team-list li > button {
-  width: 100%;
-  margin-bottom: 8px;
+/* ─ 버튼 스타일 ─ */
+.field button {
+  width: 100%;             /* 버튼 너비를 필드 가득 채우기 */
+  padding: 8px 0;          /* 세로 패딩 고정 */
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  background: #4f7fff;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: background 0.2s;
+}
+.field button:hover:not(:disabled) {
+  background: #3a6fe0;
+}
+.field button:disabled {
+  background: #d1d5db;
+  color: #777;
+  cursor: default;
+  box-shadow: none;
+}
+
+/* ─ 반응형 ─ */
+@media (max-width: 500px) {
+  #team-list {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+  }
 }
