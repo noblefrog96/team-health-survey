@@ -1,152 +1,36 @@
-/* ────────────────────────────────────────────────── */
-/* 전체 레이아웃 및 기본 설정 */
-/* ────────────────────────────────────────────────── */
-* {
-  box-sizing: border-box;
-  margin: 0; padding: 0;
+/* 팀 목록을 카드 그리드로 변경 */
+#team-list {
+  display: grid;
+  /* 최소 카드 너비 160px, 최대 한 칸이 1fr */
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  width: 100%;
+  max-width: 480px;  /* 전체 최대 폭 */
+  padding: 0;
+  margin: 0 auto 20px;
 }
-body {
-  font-family: 'Segoe UI', Roboto, sans-serif;
-  background-color: #f2f4f8;
+
+/* 개별 카드 스타일 */
+#team-list li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px;
-  color: #333;
-}
-
-/* ────────────────────────────────────────────────── */
-/* 헤더 & 날짜 표시 */
-/* ────────────────────────────────────────────────── */
-#team-title {
-  font-size: 1.75rem;
-  font-weight: 600;
-  margin-bottom: 12px;
-  text-align: center;
-}
-#date-time {
-  font-size: 1.05rem;
-  color: #555;
-  margin-bottom: 24px;
-  text-align: center;
-}
-
-/* ────────────────────────────────────────────────── */
-/* 리스트 헤더 */
-/* ────────────────────────────────────────────────── */
-#team-list-header {
-  width: 100%;
-  max-width: 480px;
-  display: grid;
-  grid-template-columns: 2fr 3fr 3fr 2fr;
-  gap: 12px;
-  padding: 12px 16px;
-  background: #e6e8ec;
-  border-radius: 8px;
-  margin-bottom: 8px;
-  font-weight: 500;
-  color: #444;
-}
-
-/* ────────────────────────────────────────────────── */
-/* 팀원 카드(목록) */
-/* ────────────────────────────────────────────────── */
-#team-list {
-  list-style: none;
-  width: 100%;
-  max-width: 480px;
-}
-#team-list li {
-  display: grid;
-  grid-template-columns: 2fr 3fr 3fr 2fr;
-  gap: 12px;
-  align-items: center;
   background: #fff;
+  padding: 12px;
   border-radius: 8px;
-  padding: 12px 16px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  transition: background 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 #team-list li:hover {
-  background: #f9fafb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
-/* ────────────────────────────────────────────────── */
-/* 상태 텍스트 */
-/* ────────────────────────────────────────────────── */
-.status {
-  white-space: nowrap;
-  font-weight: 500;
-  color: #333;
-}
-
-/* ────────────────────────────────────────────────── */
-/* 드롭다운 */
-/* ────────────────────────────────────────────────── */
-select {
+/* 각 카드 내부 요소 간격 */
+#team-list li > div,
+#team-list li > select,
+#team-list li > button {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ccd0da;
-  border-radius: 6px;
-  background: #fff;
-  font-size: 1rem;
-  transition: border-color 0.2s;
-}
-select:focus {
-  outline: none;
-  border-color: #7aa5ff;
-}
-select:disabled {
-  background: #f0f2f5;
-  color: #888;
-  cursor: not-allowed;
-}
-
-/* ────────────────────────────────────────────────── */
-/* 버튼 */
-/* ────────────────────────────────────────────────── */
-button {
-  padding: 8px 12px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: background 0.2s ease;
-}
-button:not(:disabled) {
-  background: #4f7fff;
-  color: #fff;
-}
-button:not(:disabled):hover {
-  background: #3a6fe0;
-}
-button:disabled {
-  background: #d1d5db;
-  color: #777;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-/* ────────────────────────────────────────────────── */
-/* 반응형: 화면 작아질 때 그리드 재구성 */
-/* ────────────────────────────────────────────────── */
-@media (max-width: 500px) {
-  #team-list-header,
-  #team-list li {
-    grid-template-columns: 1fr;
-    gap: 8px;
-    text-align: left;
-  }
-  #team-list-header > div,
-  #team-list li > * {
-    width: 100%;
-  }
-  /* 버튼과 select는 가로 전체 너비 */
-  select,
-  button {
-    width: 100%;
-  }
+  margin-bottom: 8px;
 }
