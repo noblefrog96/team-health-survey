@@ -1,48 +1,129 @@
+/* 전체 레이아웃 설정 */
 body {
   font-family: Arial, sans-serif;
-  margin:0; padding:0;
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:flex-start;
-  background:#f7f7f7; padding:20px 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* 최상단 부분이 짤리는 문제 해결을 위해 상단 정렬 */
+  height: 100vh;
+  background-color: #f7f7f7;
+  padding-top: 20px; /* 상단 여백 추가 */
 }
 
-#team-title { text-align:center; font-size:2em; margin-bottom:10px; }
-#date-time  { text-align:center; margin-bottom:20px; font-size:1.1em; }
-
-/* 기존 그리드 레이아웃 유지 */
-#team-list-header,
-#team-list li {
-  display:grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap:10px; width:90%; text-align:center;
-  align-items:center;
+/* 제목 */
+#team-title {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #333;
 }
+
+/* 날짜와 시간 표시 */
+#date-time {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center; /* 가운데 정렬 */
+}
+
+/* 팀 목록 제목 */
 #team-list-header {
-  font-weight:bold; background:#e0e0e0;
-  padding:8px; border-radius:5px; margin-bottom:10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-align: center; /* 가운데 정렬 */
+  background-color: #e0e0e0;
+  padding: 10px;
+  border-radius: 5px;
+  width: 80%;
 }
+
+/* 팀 목록 */
+#team-list {
+  list-style: none;
+  padding: 0;
+  width: 80%;
+}
+
+/* 팀 목록 각 항목 스타일 */
 #team-list li {
-  background:#fff; padding:10px; margin-bottom:8px;
-  border-radius:5px; box-shadow:0 1px 3px rgba(0,0,0,0.1);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr; /* 가로 1열로 항목들 나열 */
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 15px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center; /* 가운데 정렬 */
 }
 
-/* 상태 텍스트 한 줄 고정 */
-.status {
-  white-space: nowrap;
+/* 각 항목 간 간격 */
+#team-list li > * {
+  margin-bottom: 8px;
 }
 
-/* 버튼 스타일 */
+/* 제출 시간 스타일 */
+#team-list li .time {
+  font-size: 0.9em;
+  color: gray;
+}
+
+/* 버튼 스타일 (롤백) */
 button {
-  padding:6px 12px; border:none; border-radius:4px;
-  background:#007BFF; color:#fff; cursor:pointer;
-}
-button:disabled {
-  background:#ccc; cursor:not-allowed;
+  margin-left: 10px;
+  padding: 8px 16px;  /* 이전 버튼 크기 */
+  font-size: 1em;
+  background-color: #007BFF; /* 파란색으로 변경 */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
 }
 
-/* 드롭다운 비활성화 시 연하게 */
-select { padding:4px; }
-select:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+button:disabled {
+  background-color: #cccccc;
+}
+
+/* 상태 표시 스타일 */
+#team-list li span {
+  font-size: 1.2em;
+}
+
+/* 모바일 환경에 맞게 스타일 조정 */
+@media (max-width: 600px) {
+  /* 제목 크기 및 여백 조정 */
+  #team-title {
+    font-size: 1.5em; /* 모바일에서 조금 더 작은 크기 */
+    margin-top: 15px;
+  }
+
+  /* 날짜 및 시간 표시 크기 및 여백 조정 */
+  #date-time {
+    font-size: 1.1em;
+    margin-top: 10px;
+  }
+
+  /* 팀 목록 제목의 그리드 레이아웃을 세로로 변경 */
+  #team-list-header {
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* 1열로 변경 */
+  }
+
+  /* 팀 목록 각 항목의 그리드 레이아웃을 세로로 변경 */
+  #team-list li {
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* 모바일에서도 항목들이 1열로 배치 */
+    padding: 15px; /* 세로 항목이 많아졌으므로 패딩 조정 */
+  }
+
+  /* 버튼 크기 조정 */
+  button {
+    padding: 6px 12px;
+    font-size: 0.9em;
+  }
 }
