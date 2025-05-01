@@ -1,13 +1,14 @@
 /* 팀 목록을 카드 그리드로 변경 */
 #team-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* 자동 줄바꿈되는 카드 */
   gap: 16px;
   width: 100%;
-  max-width: 480px;
-  padding: 0;
+  max-width: 640px; /* 💡 넓게 잡아 모바일에서도 덜 답답함 */
+  padding: 0 16px;  /* 💡 좌우 여백 */
   margin: 0 auto 24px;
   list-style: none;
+  box-sizing: border-box;
 }
 
 /* 개별 카드 스타일 */
@@ -16,12 +17,14 @@
   flex-direction: column;
   align-items: center;
   background: #ffffff;
-  padding: 16px;
+  padding: 16px 12px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   text-align: center;
   transition: transform 0.1s ease, box-shadow 0.1s ease;
+  min-width: 0; /* 💡 카드 내용이 넘치지 않도록 */
 }
+
 #team-list li:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
@@ -77,25 +80,24 @@
   cursor: not-allowed;
 }
 
-/* 프로필 이미지 스타일 */
-.card-avatar {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 10px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+/* 카드 요소 간 간격 */
+#team-list li > div,
+#team-list li > select,
+#team-list li > button {
+  width: 100%;
+  margin-bottom: 8px;
 }
 
-/* 반응형 - 모바일에 최적화 */
+/* 모바일 최적화 */
 @media (max-width: 480px) {
   #team-list {
-    padding: 0 12px;
+    max-width: 100%;
+    padding: 0 12px; /* 💡 좌우 여백 줄이기 */
     gap: 12px;
   }
 
   #team-list li {
-    padding: 14px;
+    padding: 14px 10px;
   }
 
   .card-name {
@@ -106,11 +108,8 @@
     font-size: 0.9rem;
   }
 
+  #team-list li select,
   #team-list li button {
-    font-size: 0.85rem;
-  }
-
-  #team-list li select {
     font-size: 0.85rem;
   }
 }
