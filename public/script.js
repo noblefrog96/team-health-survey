@@ -41,8 +41,11 @@ async function handleSubmit(name, phone, btn, selectEl, statusDiv) {
      });
      const result = await res.json();
      if (!result.success) throw new Error(result.message);
+    // ✅ 성공 메시지 alert
+    alert(result.message);
    } catch (err) {
      console.error(err);
+     // 실패 메시지 alert
      alert(err.message || '제출 중 오류가 발생했습니다.');
     // 실패 시 버튼/셀렉트 원복
     btn.textContent = '제출';
