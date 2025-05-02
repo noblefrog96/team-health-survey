@@ -63,19 +63,22 @@ exports.handler = async (event) => {
     const time = formatKST();
     const rowNumber = idx + 2;
 
-    // ✅ 및 시간 기록
-    await sheets.spreadsheets.values.update({
+    // ✅ 및 시간 기록 (batchUpdate 한 번으로 묶기)
+    await sheets.spreadsheets.values.batchUpdate({
       spreadsheetId: SPREADSHEET_ID,
-      range: `${SHEET_NAME}!B${rowNumber}`,
-      valueInputOption: 'RAW',
-      requestBody: { values: [['✅']] }
-    });
-
-    await sheets.spreadsheets.values.update({
-      spreadsheetId: SPREADSHEET_ID,
-      range: `${SHEET_NAME}!C${rowNumber}`,
-      valueInputOption: 'RAW',
-      requestBody: { values: [[time]] }
+      requestBody: {
+        valueInputOption: 'RAW',
+        data: [
+          {
+            range: `${SHEET_NAME}!B${rowNumber}`,  // 제출 여부 열
+            values: [['✅']],
+          },
+          {
+            range: `${SHEET_NAME}!C${rowNumber}`,  // 제출 시간 열
+            values: [[time]],
+          }
+        ]
+      }
     });
 
     return {
