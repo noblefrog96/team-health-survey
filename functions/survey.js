@@ -1,5 +1,3 @@
-import { formatKST } from './functions/formatKST.js';
-
 const axios = require('axios');
 const qs = require('qs');
 const { google } = require('googleapis');
@@ -53,7 +51,7 @@ exports.handler = async (event) => {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
 
-    const time = formatKST();
+    const time = require('./utils');
     const rowNumber = idx + 2;
 
     // ✅ 및 시간 기록 (batchUpdate 한 번으로 묶기)
