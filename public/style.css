@@ -1,3 +1,6 @@
+/* team-health-survey/public/style.css */
+
+/* ────────────────────────────────────────────────────────────────────────── */
 /* 전체 레이아웃 */
 body {
   font-family: Arial, sans-serif;
@@ -29,10 +32,10 @@ body {
 #team-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 16px;
+  gap: 12px;           /* 간격 소폭 감소 */
   max-width: 640px;
   margin: 0 auto 24px;
-  padding: 0 16px;
+  padding: 0 12px;     /* 좌우 여백 통일 */
   list-style: none;
   box-sizing: border-box;
 }
@@ -41,17 +44,30 @@ body {
 #team-list li {
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  padding: 16px 12px;
+  /* 기본 그림자만 아주 은은하게 유지 */
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  padding: 14px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  transition: transform 0.1s, box-shadow 0.1s;
+  transition: box-shadow 0.1s ease;
 }
-#team-list li:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+/* 데스크탑 전용 : 호버 시 은은히 그림자만 증가 */
+@media (min-width: 481px) {
+  #team-list li:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+}
+
+/* 모바일 : 호버/그림자 모두 제거해 완전 플랫 카드 */
+@media (max-width: 480px) {
+  #team-list li,
+  #team-list li:hover {
+    box-shadow: none;
+    transition: none;
+  }
 }
 
 /* 이름 */
@@ -77,6 +93,7 @@ body {
   border-radius: 6px;
   font-size: 0.9rem;
   margin-bottom: 10px;
+  box-sizing: border-box;
 }
 
 /* 버튼 */
@@ -91,21 +108,22 @@ body {
   cursor: pointer;
   transition: background 0.2s;
 }
-#team-list li button:hover:enabled {
-  background: #3a63e0;
+
+/* 버튼 호버는 데스크탑에서만 */
+@media (min-width: 481px) {
+  #team-list li button:hover:enabled {
+    background: #3a63e0;
+  }
 }
+
+/* 모바일 버튼은 호버 없이 플랫 */
+@media (max-width: 480px) {
+  #team-list li button {
+    transition: none;
+  }
+}
+
 #team-list li button:disabled {
   background: #ccc;
   cursor: not-allowed;
-}
-
-/* 모바일 조정 */
-@media (max-width: 480px) {
-  #team-list {
-    gap: 12px;
-    padding: 0 12px;
-  }
-  #team-list li {
-    padding: 14px 10px;
-  }
 }
