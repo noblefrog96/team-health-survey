@@ -57,6 +57,7 @@ body {
 /* 데스크탑 전용 : 호버 시 은은히 그림자만 증가 */
 @media (min-width: 481px) {
   #team-list li:hover {
+    transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
 }
