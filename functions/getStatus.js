@@ -1,5 +1,10 @@
-// team-health-survey/functions/getStatus.js
+// functions/getStatus.js
+
 const { google } = require('googleapis');
+const {
+  SPREADSHEET_ID,
+  RANGE_ALL
+} = require('./constants');
 
 exports.handler = async () => {
   try {
@@ -8,25 +13,21 @@ exports.handler = async () => {
       credentials: serviceAccount,
       scopes: ['https://www.googleapis.com/auth/spreadsheets']
     });
-
     const client = await auth.getClient();
     const sheets = google.sheets({ version: 'v4', auth: client });
 
-    const SPREADSHEET_ID = '1BZ5tMYdt8yHVyPz58J-B7Y5aLd9-ukGbeu7hd_BHTYI';
-    // A: 이름, B: ✅, C: 시간, D: 휴대폰
-    const RANGE = 'kensol_sinteam!A2:D11';
-
+    // 시트 전체(A2:D11) 데이터를 읽어옵니다
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
-      range: RANGE,
+      range: RANGE_ALL,
     });
 
-    const data = res.data.values || [];
-    const statuses = data.map(row => ({
-      name: row[0],
-      submitted: row[1] === '✅',
-      submittedTime: row[2] || '미제출',
-      phone: row[3] || ''
+    const rows = res.data.values || [];
+    const statuses = rows.map(row => ({
+      name:          row[0],              // A열: 이름
+      submitted:     row[1] === '✅',     // B열: 제출 여부
+      submittedTime: row[2] || '미제출',  // C열: 제출 시간
+      phone:         row[3] || ''         // D열: 휴대폰
     }));
 
     return {
