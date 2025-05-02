@@ -25,20 +25,45 @@ function shuffle(arr) {
   return a;
 }
 
-async function handleSubmit(name, phone, btn, selectEl) {
+@@ async function handleSubmit(name, phone, btn, selectEl, statusDiv) {
+
+  // 1) "제출 중..." 표시
   btn.textContent = '제출 중...';
   btn.disabled = true;
   selectEl.disabled = true;
 
-  const res = await fetch('/.netlify/functions/survey', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, phone }),
-  });
-  const result = await res.json();
-  alert(result.message);
-  render(await fetchStatus());
-}
+   // 2) 실제 서버 제출
+   try {
+     const res = await fetch('/.netlify/functions/survey', {
+       method:'POST',
+       headers:{ 'Content-Type':'application/json' },
+       body: JSON.stringify({ name, phone })
+     });
+     const result = await res.json();
+     if (!result.success) throw new Error(result.message);
+   } catch (err) {
+     console.error(err);
+     alert(err.message || '제출 중 오류가 발생했습니다.');
+    // 실패 시 버튼/셀렉트 원복
+    btn.textContent = '제출';
+    btn.disabled = false;
+    selectEl.disabled = false;
+     return;
+   }
+
+  // 3) 성공 시 로컬 상태 업데이트
+  const now = new Date();
+  const hh = String(now.getHours()).padStart(2,'0');
+  const mm = String(now.getMinutes()).padStart(2,'0');
+  statusDiv.textContent = `✅ ${hh}:${mm}`;
+  btn.textContent = '제출됨';
+
+   // 4) 5초 뒤 백그라운드 전체 리렌더
+   setTimeout(async () => {
+     render(await fetchStatus());
+   }, 5000);
+ }
+
 
 function render(statuses) {
   list.innerHTML = '';
