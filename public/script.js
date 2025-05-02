@@ -67,6 +67,9 @@ async function handleSubmit(name, phone, btn, selectEl, statusDiv) {
    }, 5000);
  }
 
+function formatPhone(phone) {
+  return phone.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1-$2-$3');
+}
 
 function render(statuses) {
   list.innerHTML = '';
@@ -91,7 +94,7 @@ function render(statuses) {
     const others = statuses.map(x => x.phone).filter(p => p && p !== s.phone);
     const sample = shuffle(others).slice(0, 4).concat(s.phone);
     shuffle(sample).forEach(p => {
-      phoneSelect.innerHTML += `<option value="${p}">${p}</option>`;
+      phoneSelect.innerHTML += `<option value="${p}">${formatPhone(p)}</option>`;
     });
 
     if (s.submitted) phoneSelect.disabled = true;
