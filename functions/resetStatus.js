@@ -1,5 +1,3 @@
-// functions/resetStatus.js
-
 const { google } = require('googleapis');
 const {
   SPREADSHEET_ID,
