@@ -15,7 +15,7 @@ function formatKST() {
   if (h === 0) h = 12;
   else if (h >= 12) { ampm = 'PM'; if (h > 12) h -= 12; }
   const m = d.getMinutes().toString().padStart(2,'0');
-  return ${ampm} ${h.toString().padStart(2,'0')}:${m};
+  return `${ampm} ${h.toString().padStart(2,'0')}:${m}`;
 }
 
 exports.handler = async (event) => {
@@ -70,11 +70,11 @@ exports.handler = async (event) => {
         valueInputOption: 'RAW',
         data: [
           {
-            range: ${SHEET_NAME}!B${rowNumber},  // 제출 여부 열
+            range: `${SHEET_NAME}!B${rowNumber}`,
             values: [['✅']],
           },
           {
-            range: ${SHEET_NAME}!C${rowNumber},  // 제출 시간 열
+            range: `${SHEET_NAME}!C${rowNumber}`,
             values: [[time]],
           }
         ]
