@@ -12,12 +12,15 @@ updateDateTime();
 
 // 화면 표시용 한국 시간 AM/PM 포맷 (초 제외)
 function formatKST() {
-  const d = new Date(Date.now() + (9*60 - new Date().getTimezoneOffset())*60000);
-  let h = d.getHours(), ampm = 'AM';
-  if (h === 0) h = 12;
-  else if (h >= 12) { ampm = 'PM'; if (h > 12) h -= 12; }
-  const m = String(d.getMinutes()).padStart(2, '0');
-  return `${ampm} ${String(h).padStart(2, '0')}:${m}`;
+  // ex. "01:23 AM"
+  const parts = new Date().toLocaleTimeString('en-US', {
+    timeZone: 'Asia/Seoul',
+    hour12: true,
+    hour: '2-digit',
+    minute: '2-digit'
+  }).split(' ');
+  // parts = ['01:23', 'AM']
+  return `${parts[1]} ${parts[0]}`;
 }
 
 async function fetchStatus() {
