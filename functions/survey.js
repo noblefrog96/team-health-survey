@@ -9,6 +9,15 @@ const {
   FORM_DATA_TEMPLATE
 } = require('./constants');
 
+function formatKST() {
+  const d = new Date(Date.now() + (9*60 - new Date().getTimezoneOffset())*60000);
+  let h = d.getHours(), ampm = 'AM';
+  if (h === 0) h = 12;
+  else if (h >= 12) { ampm = 'PM'; if (h > 12) h -= 12; }
+  const m = d.getMinutes().toString().padStart(2,'0');
+  return ${ampm} ${h.toString().padStart(2,'0')}:${m};
+}
+
 exports.handler = async (event) => {
   try {
     const { name, phone: selectedPhone } = JSON.parse(event.body);
@@ -51,7 +60,7 @@ exports.handler = async (event) => {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
 
-    const time = require('./utils');
+    const time = formatKST();
     const rowNumber = idx + 2;
 
     // ✅ 및 시간 기록 (batchUpdate 한 번으로 묶기)
@@ -61,11 +70,11 @@ exports.handler = async (event) => {
         valueInputOption: 'RAW',
         data: [
           {
-            range: `${SHEET_NAME}!B${rowNumber}`,  // 제출 여부 열
+            range: ${SHEET_NAME}!B${rowNumber},  // 제출 여부 열
             values: [['✅']],
           },
           {
-            range: `${SHEET_NAME}!C${rowNumber}`,  // 제출 시간 열
+            range: ${SHEET_NAME}!C${rowNumber},  // 제출 시간 열
             values: [[time]],
           }
         ]
