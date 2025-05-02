@@ -17,12 +17,6 @@ exports.RANGE_SUBMITTED_TIME = `${exports.SHEET_NAME}!C2:C12`;
 
 
 exports.FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc5zicXdV113lzuk7Qe78ncIcmpEpN8QHK33m4k_-lqoMtbPg/formResponse'; // 내 TEST 구글 폼
-
-/**
- * formData 템플릿 생성 함수
- * @param {string} name  제출자 이름
- * @param {string} phone 제출자 휴대폰
- */
 exports.FORM_DATA_TEMPLATE = (name, phone) => ({
   'entry.2099353174': '케이엔솔',                // 협력사명
   'entry.1432170741': name,                     // 이름
@@ -42,7 +36,6 @@ exports.FORM_DATA_TEMPLATE = (name, phone) => ({
 
 /**
 exports.FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSf9eoflHYpJeW8b1oKBnU4OITlt4pJZyyj3cuwP9fy5DHvpbQ/formResponse'; // 정식 아산FAP 구글 폼
-
 exports.FORM_DATA_TEMPLATE = (name, phone) => ({
   'entry.1212348438': '케이엔솔(전기)',                // 협력사명
   'entry.513669972': name,                     // 이름
