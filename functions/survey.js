@@ -1,4 +1,4 @@
-import { formatKST } from './utils/formatKST.js';
+import { formatKST } from './functions/formatKST.js';
 
 const axios = require('axios');
 const qs = require('qs');
