@@ -1,3 +1,5 @@
+import { formatKST } from './utils/utils.js';
+
 const list = document.getElementById('team-list');
 const dateTime = document.getElementById('date-time');
 
