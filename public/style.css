@@ -1,3 +1,8 @@
+.header-container {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
 /* 팀 목록을 카드 그리드로 변경 */
 #team-list {
   display: grid;
