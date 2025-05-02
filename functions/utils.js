@@ -1,4 +1,3 @@
-// utils/utils.js
 export function formatKST(date = new Date()) {
   const kstDate = new Date(date.getTime() + 9 * 60 * 60 * 1000);
   let hours = kstDate.getUTCHours();
