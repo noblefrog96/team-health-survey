@@ -25,7 +25,7 @@ function shuffle(arr) {
   return a;
 }
 
-@@ async function handleSubmit(name, phone, btn, selectEl, statusDiv) {
+async function handleSubmit(name, phone, btn, selectEl, statusDiv) {
 
   // 1) "제출 중..." 표시
   btn.textContent = '제출 중...';
