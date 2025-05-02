@@ -1,4 +1,4 @@
-import { formatKST } from './functions/utils.js';
+//import { formatKST } from './functions/utils.js';
 
 const list = document.getElementById('team-list');
 const dateTime = document.getElementById('date-time');
@@ -57,7 +57,11 @@ async function handleSubmit(name, phone, btn, selectEl, statusDiv) {
    }
 
   // 3) 성공 시 로컬 상태 업데이트
-  statusDiv.textContent = formatKST();  // ✅ AM 00:52
+  const now = new Date();
+  const hh = String(now.getHours()).padStart(2,'0');
+  const mm = String(now.getMinutes()).padStart(2,'0');
+  statusDiv.textContent = `✅ ${hh}:${mm}`;
+  //statusDiv.textContent = formatKST();  // ✅ AM 00:52
   btn.textContent = '제출됨';
 
    // 4) 5초 뒤 백그라운드 전체 리렌더
