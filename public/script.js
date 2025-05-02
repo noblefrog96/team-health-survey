@@ -10,6 +10,16 @@ function updateDateTime() {
 }
 updateDateTime();
 
+// 화면 표시용 한국 시간 AM/PM 포맷 (초 제외)
+function formatKST() {
+  const d = new Date(Date.now() + (9*60 - new Date().getTimezoneOffset())*60000);
+  let h = d.getHours(), ampm = 'AM';
+  if (h === 0) h = 12;
+  else if (h >= 12) { ampm = 'PM'; if (h > 12) h -= 12; }
+  const m = String(d.getMinutes()).padStart(2, '0');
+  return `${ampm} ${String(h).padStart(2, '0')}:${m}`;
+}
+
 async function fetchStatus() {
   const res = await fetch('/.netlify/functions/getStatus');
   return res.ok ? res.json() : [];
@@ -55,10 +65,7 @@ async function handleSubmit(name, phone, btn, selectEl, statusDiv) {
    }
 
   // 3) 성공 시 로컬 상태 업데이트
-  const now = new Date();
-  const hh = String(now.getHours()).padStart(2,'0');
-  const mm = String(now.getMinutes()).padStart(2,'0');
-  statusDiv.textContent = `✅ ${hh}:${mm}`;
+  statusDiv.textContent = `✅ ${formatKST()}`;
   btn.textContent = '제출됨';
 
    // 4) 5초 뒤 백그라운드 전체 리렌더
