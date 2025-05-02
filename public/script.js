@@ -5,8 +5,8 @@ const dateTime = document.getElementById('date-time');
 function updateDateTime() {
   const now = new Date();
   const dayNames = ["일","월","화","수","목","금","토"];
-  const formattedDate = ${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()} (${dayNames[now.getDay()]});
-  dateTime.textContent = ${formattedDate};
+   const formattedDate = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()} (${dayNames[now.getDay()]})`;
+   dateTime.textContent = formattedDate;
 }
 updateDateTime();
 
@@ -58,7 +58,7 @@ async function handleSubmit(name, phone, btn, selectEl, statusDiv) {
   const now = new Date();
   const hh = String(now.getHours()).padStart(2,'0');
   const mm = String(now.getMinutes()).padStart(2,'0');
-  statusDiv.textContent = ✅ ${hh}:${mm};
+  statusDiv.textContent = `✅ ${hh}:${mm}`;
   btn.textContent = '제출됨';
 
    // 4) 5초 뒤 백그라운드 전체 리렌더
@@ -85,12 +85,12 @@ function render(statuses) {
     const statusDiv = document.createElement('div');
     statusDiv.className = 'card-status';
     statusDiv.textContent = s.submitted
-      ? ✅ ${s.submittedTime}
-      : '❌ 미제출';
+     ? `✅ ${s.submittedTime}`
+     : '❌ 미제출';
 
     // 휴대폰 드롭다운: 자기 번호 + 랜덤 4개
     const phoneSelect = document.createElement('select');
-    phoneSelect.innerHTML = <option value="">휴대폰 번호</option>;
+    phoneSelect.innerHTML = `<option value="">휴대폰 번호</option>`;
     const others = statuses.map(x => x.phone).filter(p => p && p !== s.phone);
     const sample = shuffle(others).slice(0, 4).concat(s.phone);
     shuffle(sample).forEach(p => {
