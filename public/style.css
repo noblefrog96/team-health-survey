@@ -1,120 +1,111 @@
-.header-container {
-  text-align: center;
-  margin-bottom: 16px;
+/* 전체 레이아웃 */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0; padding: 0;
+  background: #f7f7f7;
 }
 
-/* 팀 목록을 카드 그리드로 변경 */
+/* Header */
+.header-container {
+  text-align: center;
+  padding: 16px 0;
+}
+
+/* 팀 제목 */
+#team-title {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+/* 날짜 */
+#date-time {
+  margin-top: 6px;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+/* 카드 그리드 */
 #team-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* 자동 줄바꿈되는 카드 */
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 16px;
-  width: 100%;
-  max-width: 640px; /* 💡 넓게 잡아 모바일에서도 덜 답답함 */
-  padding: 0 16px;  /* 💡 좌우 여백 */
+  max-width: 640px;
   margin: 0 auto 24px;
+  padding: 0 16px;
   list-style: none;
   box-sizing: border-box;
 }
 
-/* 개별 카드 스타일 */
+/* 카드 */
 #team-list li {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 16px 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #ffffff;
-  padding: 16px 12px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   text-align: center;
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
-  min-width: 0; /* 💡 카드 내용이 넘치지 않도록 */
+  transition: transform 0.1s, box-shadow 0.1s;
 }
-
 #team-list li:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 /* 이름 */
 .card-name {
   font-weight: 600;
-  font-size: 1.05rem;
-  color: #1a1a1a;
-  margin-bottom: 6px;
+  font-size: 1rem;
+  color: #222;
+  margin-bottom: 8px;
 }
 
 /* 상태 */
 .card-status {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: #555;
-  white-space: nowrap;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
-/* 셀렉트 박스 */
+/* select */
 #team-list li select {
+  width: 100%;
   padding: 6px;
   border: 1px solid #ccd0da;
   border-radius: 6px;
   font-size: 0.9rem;
-  width: 100%;
-  margin-bottom: 8px;
-  box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
-/* 버튼 스타일 */
+/* 버튼 */
 #team-list li button {
-  background: #4f7fff;
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
+  width: 100%;
   padding: 8px 0;
   font-size: 0.9rem;
-  width: 100%;
+  background: #4f7fff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  box-sizing: border-box;
-  transition: background 0.2s ease;
+  transition: background 0.2s;
 }
-
 #team-list li button:hover:enabled {
   background: #3a63e0;
 }
-
 #team-list li button:disabled {
-  background: #cccccc;
+  background: #ccc;
   cursor: not-allowed;
 }
 
-/* 카드 요소 간 간격 */
-#team-list li > div,
-#team-list li > select,
-#team-list li > button {
-  width: 100%;
-  margin-bottom: 8px;
-}
-
-/* 모바일 최적화 */
+/* 모바일 조정 */
 @media (max-width: 480px) {
   #team-list {
-    max-width: 100%;
-    padding: 0 12px; /* 💡 좌우 여백 줄이기 */
     gap: 12px;
+    padding: 0 12px;
   }
-
   #team-list li {
     padding: 14px 10px;
-  }
-
-  .card-name {
-    font-size: 1rem;
-  }
-
-  .card-status {
-    font-size: 0.9rem;
-  }
-
-  #team-list li select,
-  #team-list li button {
-    font-size: 0.85rem;
   }
 }
