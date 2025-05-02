@@ -7,13 +7,13 @@ exports.SPREADSHEET_ID = '1BZ5tMYdt8yHVyPz58J-B7Y5aLd9-ukGbeu7hd_BHTYI';
 exports.SHEET_NAME = 'kensol_sinteam';
 
 // A2:D11 범위 (이름, 제출여부, 제출시간, 휴대폰)
-exports.RANGE_ALL = `${exports.SHEET_NAME}!A2:D11`;
+exports.RANGE_ALL = `${exports.SHEET_NAME}!A2:D12`;
 
 // 제출 여부 초기화 범위 (B2:B11)
-exports.RANGE_SUBMITTED = `${exports.SHEET_NAME}!B2:B11`;
+exports.RANGE_SUBMITTED = `${exports.SHEET_NAME}!B2:B12`;
 
 // 제출 시간 초기화 범위 (C2:C11)
-exports.RANGE_SUBMITTED_TIME = `${exports.SHEET_NAME}!C2:C11`;
+exports.RANGE_SUBMITTED_TIME = `${exports.SHEET_NAME}!C2:C12`;
 
 // ───────────────────────────────────────────────────
 // Google Forms 관련 상수
