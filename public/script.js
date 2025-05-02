@@ -1,6 +1,7 @@
 const list = document.getElementById('team-list');
 const dateTime = document.getElementById('date-time');
 
+// 오늘 날짜만 표시
 function updateDateTime() {
   const now = new Date();
   const dayNames = ["일","월","화","수","목","금","토"];
@@ -14,25 +15,9 @@ async function fetchStatus() {
   return res.ok ? res.json() : [];
 }
 
-async function handleSubmit(name, phone, btn, phoneSelect) {
-  btn.textContent = '제출 중...'; 
-  btn.disabled = true;
-  phoneSelect.disabled = true;
-  
-  const res = await fetch('/.netlify/functions/survey', {
-    method:'POST',
-    headers:{ 'Content-Type':'application/json' },
-    body: JSON.stringify({ name, phone })
-  });
-
-  const result = await res.json();
-  alert(result.message);
-  render(await fetchStatus());
-}
-
-// Fisher–Yates shuffle 함수
-function shuffle(array) {
-  const a = [...array];
+// Fisher–Yates shuffle
+function shuffle(arr) {
+  const a = arr.slice();
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
@@ -40,30 +25,50 @@ function shuffle(array) {
   return a;
 }
 
+async function handleSubmit(name, phone, btn, selectEl) {
+  btn.textContent = '제출 중...';
+  btn.disabled = true;
+  selectEl.disabled = true;
+
+  const res = await fetch('/.netlify/functions/survey', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, phone }),
+  });
+  const result = await res.json();
+  alert(result.message);
+  render(await fetchStatus());
+}
+
 function render(statuses) {
   list.innerHTML = '';
   statuses.forEach(s => {
     const li = document.createElement('li');
 
+    // 이름
     const nameDiv = document.createElement('div');
     nameDiv.textContent = s.name;
+    nameDiv.className = 'card-name';
 
+    // 상태 (❌ 미제출 or ✅ 시간)
     const statusDiv = document.createElement('div');
-    const text = s.submitted
-      ? `✅ ${s.submittedTime}`
-      : '❌';
-    statusDiv.textContent = text;
+    statusDiv.className = 'card-status';
+    statusDiv.textContent = s.submitted
+      ? `✅ ${s.submittedTime}`
+      : '❌ 미제출';
 
+    // 휴대폰 드롭다운: 자기 번호 + 랜덤 4개
     const phoneSelect = document.createElement('select');
-    const shuffledPhones = shuffle(statuses.map(x => x.phone));
-    phoneSelect.innerHTML = shuffledPhones
-      .map(p => `<option value="${p}">${p}</option>`)
-      .join('');
-    phoneSelect.value = '';
+    phoneSelect.innerHTML = `<option value="">휴대폰 번호</option>`;
+    const others = statuses.map(x => x.phone).filter(p => p && p !== s.phone);
+    const sample = shuffle(others).slice(0, 4).concat(s.phone);
+    shuffle(sample).forEach(p => {
+      phoneSelect.innerHTML += `<option value="${p}">${p}</option>`;
+    });
 
     if (s.submitted) phoneSelect.disabled = true;
 
-    const btnDiv = document.createElement('div');
+    // 버튼
     const btn = document.createElement('button');
     btn.textContent = s.submitted ? '제출됨' : '제출';
     btn.disabled = s.submitted;
@@ -74,11 +79,13 @@ function render(statuses) {
       }
       handleSubmit(s.name, s.phone, btn, phoneSelect);
     };
-    btnDiv.appendChild(btn);
 
-    li.append(nameDiv, statusDiv, phoneSelect, btnDiv);
+    // append
+    li.append(nameDiv, statusDiv, phoneSelect, btn);
     list.append(li);
   });
 }
 
-(async () => { render(await fetchStatus()); })();
+(async () => {
+  render(await fetchStatus());
+})();
