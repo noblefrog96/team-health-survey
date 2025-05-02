@@ -77,7 +77,7 @@ function render(statuses) {
         alert('휴대폰 번호를 다시 확인해주세요.');
         return;
       }
-      handleSubmit(s.name, s.phone, btn, phoneSelect);
+      handleSubmit(s.name, s.phone, btn, phoneSelect, statusDiv);
     };
 
     // append
