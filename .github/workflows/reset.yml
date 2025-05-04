@@ -12,4 +12,4 @@ jobs:
     steps:
       - name: Call Netlify resetStatus Function
         run: |
-          curl -s -X GET https://sinteam.netlify.app/.netlify/functions/resetStatus
+          curl -s -X GET https://xinteam.netlify.app/.netlify/functions/resetStatus
