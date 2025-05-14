@@ -2,7 +2,8 @@ const { google } = require('googleapis');
 const {
   SPREADSHEET_ID,
   RANGE_SUBMITTED,
-  RANGE_SUBMITTED_TIME
+  RANGE_SUBMITTED_TIME,
+  ROW_COUNT
 } = require('./constants');
 
 exports.handler = async () => {
@@ -16,7 +17,7 @@ exports.handler = async () => {
     const sheets = google.sheets({ version: 'v4', auth: client });
 
     // 빈 배열로 제출 여부(B) 와 제출 시간(C) 모두 초기화
-    const resetData = Array(10).fill(['']);
+    const resetData = Array(ROW_COUNT).fill(['']);
 
     await sheets.spreadsheets.values.update({
       spreadsheetId: SPREADSHEET_ID,
