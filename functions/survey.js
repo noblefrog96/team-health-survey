@@ -89,7 +89,7 @@ exports.handler = async (event) => {
     console.error('Error in survey submission:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ success: false, message: '제출 실패! 지율이에게 문의하세요.', error: error.message })
+      body: JSON.stringify({ success: false, message: '제출 실패! 수동으로 제출하세요. 그리고 지율이에게 알려주세요.', error: error.message })
     };
   }
 };
