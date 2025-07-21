@@ -13,18 +13,22 @@ jobs:
       - name: Call Netlify resetStatus Function
         id: call-reset
         run: |
-          curl -s -X GET https://xinteam.netlify.app/.netlify/functions/resetStatus
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X GET https://xinteam.netlify.app/.netlify/functions/resetStatus)
+          BODY=$(echo "$RESPONSE" | head -n 1)
+          STATUS=$(echo "$RESPONSE" | tail -n 1)
+          echo "BODY=$BODY" >> $GITHUB_OUTPUT
+          echo "STATUS=$STATUS" >> $GITHUB_OUTPUT
 
       - name: Send Telegram Notification on Success
         if: success()
         run: |
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-            -d text="✅ Reset 성공! 액셀 초기화 완료됨."
+            -d text="✅ Reset 성공!\nHTTP 상태: ${{ steps.call-reset.outputs.STATUS }}\n응답: ${{ steps.call-reset.outputs.BODY }}"
 
       - name: Send Telegram Notification on Failure
         if: failure()
         run: |
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-            -d text="❌ Reset 실패! 액셀 초기화에 문제 발생. 확인 필요!"
+            -d text="❌ Reset 실패!\n(에러 발생 또는 호출 실패)\n확인 필요"
