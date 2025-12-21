@@ -39,7 +39,6 @@ exports.FORM_DATA_TEMPLATE = (name, phone) => ({
 });
 */
 
-
 exports.FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfAGm17f-zFkhl-1AXMygj-NPKQb7VC9CCst-JaD-h-4_rhSw/formResponse'; // 정식 아산FAP 구글 폼
 exports.FORM_DATA_TEMPLATE = (name, phone) => ({
   'entry.1212348438': '케이엔솔(전기)',                // 협력사명
