@@ -13,7 +13,7 @@ jobs:
       - name: Call Netlify resetStatus Function
         id: call-reset
         run: |
-          RESPONSE=$(curl -s -w "\n%{http_code}" -X GET https://xinteam.netlify.app/.netlify/functions/resetStatus)
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X GET https://kensoltech.netlify.app/.netlify/functions/resetStatus)
           BODY=$(echo "$RESPONSE" | head -n 1)
           STATUS=$(echo "$RESPONSE" | tail -n 1)
           echo "BODY=$BODY" >> $GITHUB_OUTPUT
