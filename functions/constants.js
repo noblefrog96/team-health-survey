@@ -1,5 +1,5 @@
 exports.SPREADSHEET_ID = '1BZ5tMYdt8yHVyPz58J-B7Y5aLd9-ukGbeu7hd_BHTYI'; // 내 구글 시트 ID
-exports.SHEET_NAME = 'kensol_sinteam'; // 시트 이름
+exports.SHEET_NAME = 'kensol_tech'; // 시트 이름
 
 // A2:D11 범위 (이름, 제출여부, 제출시간, 휴대폰)
 exports.RANGE_ALL = `${exports.SHEET_NAME}!A2:D12`;
