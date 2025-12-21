@@ -19,7 +19,7 @@ exports.ROW_COUNT = 11;
 // ───────────────────────────────────────────────────
 
 
-/**
+
 exports.FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc5zicXdV113lzuk7Qe78ncIcmpEpN8QHK33m4k_-lqoMtbPg/formResponse'; // 내 TEST 구글 폼
 exports.FORM_DATA_TEMPLATE = (name, phone) => ({
   'entry.2099353174': '케이엔솔',                // 협력사명
@@ -36,9 +36,9 @@ exports.FORM_DATA_TEMPLATE = (name, phone) => ({
   'entry.606234188': '아니오',
   'entry.487055317':  '복용중인 약 없음'
 });
-*/
 
 
+/**
 exports.FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfAGm17f-zFkhl-1AXMygj-NPKQb7VC9CCst-JaD-h-4_rhSw/formResponse'; // 정식 아산FAP 구글 폼
 exports.FORM_DATA_TEMPLATE = (name, phone) => ({
   'entry.1212348438': '케이엔솔(전기)',                // 협력사명
@@ -55,3 +55,4 @@ exports.FORM_DATA_TEMPLATE = (name, phone) => ({
   'entry.1705410828': '아니오',
   'entry.676758176':  '복용중인 약 없음'
 });
+*/
